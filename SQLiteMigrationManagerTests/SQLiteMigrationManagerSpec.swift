@@ -9,9 +9,14 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
     var db: Connection!
 
+    var testBundle: NSBundle!
+
     beforeEach {
       try! db = Connection(.Temporary)
-      subject = SQLiteMigrationManager(db)
+
+      subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle())
+
+      testBundle = NSBundle(forClass: self.dynamicType)
     }
 
     describe("hasMigrationsTable()") {
@@ -92,6 +97,35 @@ class SQLiteMigrationManagerSpec: QuickSpec {
           it("returns the first migration") {
             expect(subject.originVersion()).to(equal(2))
           }
+        }
+      }
+    }
+
+    describe("migrations()") {
+      context("when there are no migrations in the bundle") {
+        beforeEach {
+          let bundleURL = testBundle.URLForResource("Migrations_empty", withExtension: "bundle")!
+          subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle(URL: bundleURL)!)
+        }
+
+        it("returns an empty array") {
+          expect(subject.migrations()).to(beEmpty())
+        }
+      }
+
+      context("when there are migrations in the bundle") {
+        beforeEach {
+          let bundleURL = testBundle.URLForResource("Migrations", withExtension: "bundle")!
+          subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle(URL: bundleURL)!)
+        }
+
+        it("returns an array of migrations") {
+          expect(subject.migrations()).to(haveCount(3))
+        }
+
+        it("returns an ordered array of migrations") {
+          expect(subject.migrations()[0].version).to(equal(20160117220032473))
+          expect(subject.migrations()[2].version).to(equal(20160117220050560))
         }
       }
     }
