@@ -70,6 +70,17 @@ public struct SQLiteMigrationManager {
       fatalError("unknown error")
     }
   }
+
+  public func pendingMigrations() -> [Migration] {
+    if !hasMigrationsTable() {
+      return migrations()
+    }
+
+    let versions = appliedVersions()
+    return try! migrations().filter { migration in
+      !versions.contains(migration.version)
+    }
+  }
 }
 
 public protocol Migration {
