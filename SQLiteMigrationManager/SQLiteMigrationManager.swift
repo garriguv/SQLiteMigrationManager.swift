@@ -1,6 +1,8 @@
 import Foundation
 
-public struct SQLiteMigrationManager {
+public class SQLiteMigrationManager {
+    public init() {}
+
     public func helloWorld() -> String {
         return "Hello World!"
     }
