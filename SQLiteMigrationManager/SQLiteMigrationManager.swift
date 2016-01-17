@@ -1,9 +1,20 @@
 import Foundation
+import SQLite
 
-public class SQLiteMigrationManager {
-    public init() {}
+public struct SQLiteMigrationManager {
+  let db: Connection
 
-    public func helloWorld() -> String {
-        return "Hello World!"
-    }
+  private let schemaMigrations = Table("schema_migrations")
+
+  public init(_ db: Connection) {
+    self.db = db
+  }
+
+  public func hasMigrationsTable() -> Bool {
+    let sqliteMaster = Table("sqlite_master")
+    let type = Expression<String>("type")
+    let name = Expression<String>("name")
+    let count = db.scalar(sqliteMaster.filter(type == "table" && name == "schema_migrations").count)
+    return count == 1;
+  }
 }
