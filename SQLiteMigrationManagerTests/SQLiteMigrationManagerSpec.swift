@@ -182,7 +182,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
           }
 
           it("returns an array of versions") {
-            expect(try! subject.pendingMigrations().map {$0.version}).to(equal([20160117220032473, 20160117220038856, 20160117220050560]))
+            expect(subject.pendingMigrations().map {$0.version}).to(equal([20160117220032473, 20160117220038856, 20160117220050560]))
           }
         }
       }
@@ -211,7 +211,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
           context("when the migration table is empty") {
             it("returns an empty array") {
-              expect(try! subject.pendingMigrations().map {$0.version}).to(equal([20160117220032473, 20160117220038856, 20160117220050560]))
+              expect(subject.pendingMigrations().map {$0.version}).to(equal([20160117220032473, 20160117220038856, 20160117220050560]))
             }
           }
 
@@ -221,7 +221,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
             }
 
             it("returns an array of versions") {
-              expect(try! subject.pendingMigrations().map {$0.version}).to(equal([20160117220038856, 20160117220050560]))
+              expect(subject.pendingMigrations().map {$0.version}).to(equal([20160117220038856, 20160117220050560]))
             }
           }
         }

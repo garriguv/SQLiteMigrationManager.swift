@@ -77,7 +77,7 @@ public struct SQLiteMigrationManager {
     }
 
     let versions = appliedVersions()
-    return try! migrations().filter { migration in
+    return migrations().filter { migration in
       !versions.contains(migration.version)
     }
   }
