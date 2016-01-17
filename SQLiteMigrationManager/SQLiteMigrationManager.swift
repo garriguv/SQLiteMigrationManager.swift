@@ -54,7 +54,7 @@ public struct SQLiteMigrationManager {
       return FileMigration(
         version: Int64(fileName.substringToIndex(fileName.rangeOfString("_", options: .CaseInsensitiveSearch)!.startIndex))!,
         url: url)
-    } ?? []
+    }.sort { $0.version < $1.version } ?? []
   }
 }
 
