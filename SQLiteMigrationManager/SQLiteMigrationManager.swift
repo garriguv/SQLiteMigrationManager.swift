@@ -21,6 +21,12 @@ public struct SQLiteMigrationManager {
     return count == 1;
   }
 
+  public func createMigrationsTable() throws {
+    try db.run(schemaMigrations.create(ifNotExists: true) { table in
+      table.column(version, unique: true)
+    })
+  }
+
   public func currentVersion() -> Int64 {
     if !hasMigrationsTable() {
       return 0

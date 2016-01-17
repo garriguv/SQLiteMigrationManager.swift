@@ -37,6 +37,26 @@ class SQLiteMigrationManagerSpec: QuickSpec {
       }
     }
 
+    describe("createMigrationsTable()") {
+      context("when there is no migrations table") {
+        it("creates a migration table") {
+          try! subject.createMigrationsTable()
+
+          expect(subject.hasMigrationsTable()).to(beTrue())
+        }
+      }
+
+      context("when there is already a migrations table") {
+        beforeEach {
+          createMigrationTable(db)
+        }
+
+        it("does not throw") {
+          expect { try subject.createMigrationsTable() }.notTo(throwError())
+        }
+      }
+    }
+
     describe("currentVersion()") {
       context("when there is no migration table") {
         it("returns 0") {
