@@ -1,0 +1,20 @@
+#!/bin/sh
+
+carthage_installed() {
+  command -v carthage >/dev/null
+}
+
+install_dependencies() {
+  carthage update --platform iOS --use-submodules --no-use-binaries
+}
+
+main() {
+  if ! carthage_installed; then
+    echo "carthage is not installed."
+    echo "See https://github.com/carthage/carthage for install instructions."
+    exit 1
+  fi
+
+  install_dependencies
+}
+main

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EBD762D21C4BA3E800951FE6 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD762D11C4BA3E800951FE6 /* SQLite.framework */; };
+		EBD762D51C4BA3FA00951FE6 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD762D31C4BA3FA00951FE6 /* Nimble.framework */; };
+		EBD762D61C4BA3FA00951FE6 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD762D41C4BA3FA00951FE6 /* Quick.framework */; };
 		EBE813E81C4BA00200EE04E8 /* SQLiteMigrationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EBE813E71C4BA00200EE04E8 /* SQLiteMigrationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EBE813EF1C4BA00200EE04E8 /* SQLiteMigrationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager.framework */; };
 		EBE813F41C4BA00200EE04E8 /* SQLiteMigrationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE813F31C4BA00200EE04E8 /* SQLiteMigrationManagerTests.swift */; };
@@ -23,6 +26,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EBD762D11C4BA3E800951FE6 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = "Carthage/Checkouts/SQLite.swift/build/Debug-iphoneos/SQLite.framework"; sourceTree = "<group>"; };
+		EBD762D31C4BA3FA00951FE6 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "Carthage/Checkouts/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
+		EBD762D41C4BA3FA00951FE6 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Carthage/Checkouts/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
 		EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLiteMigrationManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE813E71C4BA00200EE04E8 /* SQLiteMigrationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQLiteMigrationManager.h; sourceTree = "<group>"; };
 		EBE813E91C4BA00200EE04E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -36,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBD762D21C4BA3E800951FE6 /* SQLite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBD762D51C4BA3FA00951FE6 /* Nimble.framework in Frameworks */,
+				EBD762D61C4BA3FA00951FE6 /* Quick.framework in Frameworks */,
 				EBE813EF1C4BA00200EE04E8 /* SQLiteMigrationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,6 +62,9 @@
 		EBE813DA1C4BA00200EE04E8 = {
 			isa = PBXGroup;
 			children = (
+				EBD762D31C4BA3FA00951FE6 /* Nimble.framework */,
+				EBD762D41C4BA3FA00951FE6 /* Quick.framework */,
+				EBD762D11C4BA3E800951FE6 /* SQLite.framework */,
 				EBE813E61C4BA00200EE04E8 /* SQLiteMigrationManager */,
 				EBE813F21C4BA00200EE04E8 /* SQLiteMigrationManagerTests */,
 				EBE813E51C4BA00200EE04E8 /* Products */,
@@ -312,6 +324,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SQLiteMigrationManager/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -328,6 +341,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SQLiteMigrationManager/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -340,6 +354,7 @@
 		EBE813FC1C4BA00200EE04E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SQLiteMigrationManagerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.garriguv.SQLiteMigrationManagerTests;
@@ -350,6 +365,7 @@
 		EBE813FD1C4BA00200EE04E8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SQLiteMigrationManagerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.garriguv.SQLiteMigrationManagerTests;
@@ -376,6 +392,7 @@
 				EBE813FA1C4BA00200EE04E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EBE813FB1C4BA00200EE04E8 /* Build configuration list for PBXNativeTarget "SQLiteMigrationManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +401,7 @@
 				EBE813FD1C4BA00200EE04E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
