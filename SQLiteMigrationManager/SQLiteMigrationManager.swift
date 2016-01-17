@@ -26,4 +26,12 @@ public struct SQLiteMigrationManager {
 
     return db.scalar(schemaMigrations.select(version.max)) ?? 0
   }
+
+  public func originVersion() -> Int64 {
+    if !hasMigrationsTable() {
+      return 0
+    }
+
+    return db.scalar(schemaMigrations.select(version.min)) ?? 0
+  }
 }

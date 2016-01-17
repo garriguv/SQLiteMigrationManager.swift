@@ -52,11 +52,45 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
         context("when the migration table cointains migrations") {
           beforeEach {
-            insertMigration(db, version: 1337)
+            insertMigration(db, version: 2)
+            insertMigration(db, version: 3)
+            insertMigration(db, version: 5)
           }
 
           it("returns the latest migration") {
-            expect(subject.currentVersion()).to(equal(1337))
+            expect(subject.currentVersion()).to(equal(5))
+          }
+        }
+      }
+    }
+
+    describe("originVersion()") {
+      context("when there is no migration table") {
+        it("returns 0") {
+          expect(subject.originVersion()).to(equal(0))
+        }
+      }
+
+      context("when there is a migration table") {
+        beforeEach {
+          createMigrationTable(db)
+        }
+
+        context("when the migration table is empty") {
+          it("returns 0") {
+            expect(subject.originVersion()).to(equal(0))
+          }
+        }
+
+        context("when the migration table cointains migrations") {
+          beforeEach {
+            insertMigration(db, version: 2)
+            insertMigration(db, version: 3)
+            insertMigration(db, version: 5)
+          }
+
+          it("returns the first migration") {
+            expect(subject.originVersion()).to(equal(2))
           }
         }
       }
