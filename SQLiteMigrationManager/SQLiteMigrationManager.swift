@@ -56,6 +56,20 @@ public struct SQLiteMigrationManager {
         url: url)
     }.sort { $0.version < $1.version } ?? []
   }
+
+  public func appliedVersions() -> [Int64] {
+    do {
+      var versions = [Int64]()
+      for v in try db.prepare(schemaMigrations.select(version).order(version)) {
+        versions.append(v[version])
+      }
+      return versions
+    } catch is Result {
+      return []
+    } catch {
+      fatalError("unknown error")
+    }
+  }
 }
 
 public protocol Migration {

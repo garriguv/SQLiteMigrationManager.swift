@@ -129,6 +129,38 @@ class SQLiteMigrationManagerSpec: QuickSpec {
         }
       }
     }
+
+    describe("appliedVersions()") {
+      context("when there is no migration table") {
+        it("returns an empty array") {
+          expect(subject.appliedVersions()).to(beEmpty())
+        }
+      }
+
+      context("when there is a migration table") {
+        beforeEach {
+          createMigrationTable(db)
+        }
+
+        context("when the migration table is empty") {
+          it("returns an empty array") {
+            expect(subject.appliedVersions()).to(beEmpty())
+          }
+        }
+
+        context("when the migration table cointains migrations") {
+          beforeEach {
+            insertMigration(db, version: 2)
+            insertMigration(db, version: 3)
+            insertMigration(db, version: 5)
+          }
+
+          it("returns an array of versions") {
+            expect(subject.appliedVersions()).to(equal([2, 3, 5]))
+          }
+        }
+      }
+    }
   }
 }
 
