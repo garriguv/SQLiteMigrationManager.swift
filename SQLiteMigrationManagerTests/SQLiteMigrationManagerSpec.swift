@@ -306,6 +306,47 @@ class SQLiteMigrationManagerSpec: QuickSpec {
         }
       }
     }
+
+    describe("needsMigration()") {
+      context("when there is a migration table") {
+        beforeEach {
+          createMigrationTable(db)
+        }
+
+        context("when there are pending migrations") {
+          beforeEach {
+            insertMigration(db, version: 20160117220032475)
+
+            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
+            subject = SQLiteMigrationManager(db: db, migrations: migrations)
+          }
+
+          it("returns true") {
+            expect(subject.needsMigration()).to(beTrue())
+          }
+        }
+
+        context("when there are no pending migrations") {
+          beforeEach {
+            insertMigration(db, version: 20160117220032475)
+            insertMigration(db, version: 20160117220050567)
+
+            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
+            subject = SQLiteMigrationManager(db: db, migrations: migrations)
+          }
+
+          it("returns false") {
+            expect(subject.needsMigration()).to(beFalse())
+          }
+        }
+      }
+
+      context("when there is NO migration table") {
+        it("returns false") {
+          expect(subject.needsMigration()).to(beFalse())
+        }
+      }
+    }
   }
 }
 

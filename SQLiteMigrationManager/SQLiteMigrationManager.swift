@@ -4,12 +4,12 @@ import SQLite
 public struct SQLiteMigrationManager {
   private let db: Connection
   private let swiftMigrations: [Migration]
-  private let migrationsBundle: NSBundle
+  private let migrationsBundle: NSBundle?
 
   private let schemaMigrations = Table("schema_migrations")
   private let version = Expression<Int64>("version")
 
-  public init(db: Connection, migrations: [Migration] = [], migrationsBundle: NSBundle) {
+  public init(db: Connection, migrations: [Migration] = [], migrationsBundle: NSBundle? = nil) {
     self.db = db
     self.swiftMigrations = migrations
     self.migrationsBundle = migrationsBundle
@@ -74,10 +74,22 @@ public struct SQLiteMigrationManager {
     }
   }
 
+  public func needsMigration() -> Bool {
+    if !hasMigrationsTable() {
+      return false
+    }
+
+    return pendingMigrations().count > 0
+  }
+
   private func bundleMigrations() -> [Migration] {
+    guard let bundle = migrationsBundle else {
+      return []
+    }
+
     let regex = try! NSRegularExpression(pattern: "^(\\d+)_([\\w\\s-]+)\\.sql$", options: .CaseInsensitive)
 
-    return migrationsBundle.URLsForResourcesWithExtension("sql", subdirectory: nil)?.filter {
+    return bundle.URLsForResourcesWithExtension("sql", subdirectory: nil)?.filter {
       url in
       if let fileName = url.lastPathComponent,
       let result = regex.firstMatchInString(fileName, options: .ReportProgress, range: NSMakeRange(0, fileName.startIndex.distanceTo(fileName.endIndex))) {
