@@ -2,14 +2,16 @@ import Foundation
 import SQLite
 
 public struct SQLiteMigrationManager {
-  let db: Connection
-  let migrationsBundle: NSBundle
+  private let db: Connection
+  private let swiftMigrations: [Migration]
+  private let migrationsBundle: NSBundle
 
   private let schemaMigrations = Table("schema_migrations")
   private let version = Expression<Int64>("version")
 
-  public init(db: Connection, migrationsBundle: NSBundle) {
+  public init(db: Connection, migrations: [Migration] = [], migrationsBundle: NSBundle) {
     self.db = db
+    self.swiftMigrations = migrations
     self.migrationsBundle = migrationsBundle
   }
 
@@ -44,23 +46,7 @@ public struct SQLiteMigrationManager {
   }
 
   public func migrations() -> [Migration] {
-    let regex = try! NSRegularExpression(pattern: "^(\\d+)_([\\w\\s-]+)\\.sql$", options: .CaseInsensitive)
-
-    return migrationsBundle.URLsForResourcesWithExtension("sql", subdirectory: nil)?.filter {
-      url in
-      if let fileName = url.lastPathComponent,
-      let result = regex.firstMatchInString(fileName, options: .ReportProgress, range: NSMakeRange(0, fileName.startIndex.distanceTo(fileName.endIndex))) {
-        return result.numberOfRanges == 3
-      } else {
-        return false
-      }
-    }.map {
-      url in
-      let fileName: String = url.lastPathComponent!
-      return FileMigration(
-        version: Int64(fileName.substringToIndex(fileName.rangeOfString("_", options: .CaseInsensitiveSearch)!.startIndex))!,
-        url: url)
-    }.sort { $0.version < $1.version } ?? []
+    return (bundleMigrations() + swiftMigrations).sort { $0.version < $1.version }
   }
 
   public func appliedVersions() -> [Int64] {
@@ -86,6 +72,26 @@ public struct SQLiteMigrationManager {
     return migrations().filter { migration in
       !versions.contains(migration.version)
     }
+  }
+
+  private func bundleMigrations() -> [Migration] {
+    let regex = try! NSRegularExpression(pattern: "^(\\d+)_([\\w\\s-]+)\\.sql$", options: .CaseInsensitive)
+
+    return migrationsBundle.URLsForResourcesWithExtension("sql", subdirectory: nil)?.filter {
+      url in
+      if let fileName = url.lastPathComponent,
+      let result = regex.firstMatchInString(fileName, options: .ReportProgress, range: NSMakeRange(0, fileName.startIndex.distanceTo(fileName.endIndex))) {
+        return result.numberOfRanges == 3
+      } else {
+        return false
+      }
+    }.map {
+      url in
+      let fileName: String = url.lastPathComponent!
+      return FileMigration(
+      version: Int64(fileName.substringToIndex(fileName.rangeOfString("_", options: .CaseInsensitiveSearch)!.startIndex))!,
+        url: url)
+    } ?? []
   }
 }
 

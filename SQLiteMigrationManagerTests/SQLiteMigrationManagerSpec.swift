@@ -3,6 +3,14 @@ import Nimble
 import SQLiteMigrationManager
 import SQLite
 
+struct SomeMigration: Migration {
+  let version: Int64 = 20160117220032475
+}
+
+struct SomeOtherMigration: Migration {
+  let version: Int64 = 20160117220050567
+}
+
 class SQLiteMigrationManagerSpec: QuickSpec {
   override func spec() {
     var subject: SQLiteMigrationManager!
@@ -123,29 +131,75 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
     describe("migrations()") {
       context("when there are no migrations in the bundle") {
+        var bundleURL: NSURL!
+
         beforeEach {
-          let bundleURL = testBundle.URLForResource("Migrations_empty", withExtension: "bundle")!
-          subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle(URL: bundleURL)!)
+          bundleURL = testBundle.URLForResource("Migrations_empty", withExtension: "bundle")!
         }
 
-        it("returns an empty array") {
-          expect(subject.migrations()).to(beEmpty())
+        context("when migrations are supplied") {
+          beforeEach {
+            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, migrationsBundle: NSBundle(URL: bundleURL)!)
+          }
+
+          it("returns an array of migrations") {
+            expect(subject.migrations()).to(haveCount(2))
+          }
+
+          it("returns an ordered array of migrations") {
+            expect(subject.migrations()[0].version).to(equal(20160117220032475))
+            expect(subject.migrations()[1].version).to(equal(20160117220050567))
+          }
+        }
+
+        context("when migrations are not supplied") {
+          beforeEach {
+            subject = SQLiteMigrationManager(db: db, migrations: [], migrationsBundle: NSBundle(URL: bundleURL)!)
+          }
+
+          it("returns an empty array") {
+            expect(subject.migrations()).to(beEmpty())
+          }
         }
       }
 
       context("when there are migrations in the bundle") {
+        var bundleURL: NSURL!
+
         beforeEach {
-          let bundleURL = testBundle.URLForResource("Migrations", withExtension: "bundle")!
-          subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle(URL: bundleURL)!)
+          bundleURL = testBundle.URLForResource("Migrations", withExtension: "bundle")!
         }
 
-        it("returns an array of migrations") {
-          expect(subject.migrations()).to(haveCount(3))
+        context("when migrations are supplied") {
+          beforeEach {
+            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, migrationsBundle: NSBundle(URL: bundleURL)!)
+          }
+
+          it("returns an array of migrations") {
+            expect(subject.migrations()).to(haveCount(5))
+          }
+
+          it("returns an ordered array of migrations") {
+            expect(subject.migrations()[0].version).to(equal(20160117220032473))
+            expect(subject.migrations()[4].version).to(equal(20160117220050567))
+          }
         }
 
-        it("returns an ordered array of migrations") {
-          expect(subject.migrations()[0].version).to(equal(20160117220032473))
-          expect(subject.migrations()[2].version).to(equal(20160117220050560))
+        context("when migrations are not supplied") {
+          beforeEach {
+            subject = SQLiteMigrationManager(db: db, migrations: [], migrationsBundle: NSBundle(URL: bundleURL)!)
+          }
+
+          it("returns an array of migrations") {
+            expect(subject.migrations()).to(haveCount(3))
+          }
+
+          it("returns an ordered array of migrations") {
+            expect(subject.migrations()[0].version).to(equal(20160117220032473))
+            expect(subject.migrations()[2].version).to(equal(20160117220050560))
+          }
         }
       }
     }
@@ -184,7 +238,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
     describe("pendingMigrations()") {
       context("when there is no migration table") {
-        context("when there are no migrations in the bundle") {
+        context("when there are no migrations") {
           beforeEach {
             let bundleURL = testBundle.URLForResource("Migrations_empty", withExtension: "bundle")!
             subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle(URL: bundleURL)!)
@@ -195,14 +249,16 @@ class SQLiteMigrationManagerSpec: QuickSpec {
           }
         }
 
-        context("when there are migrations in the bundle") {
+        context("when there are migrations") {
           beforeEach {
             let bundleURL = testBundle.URLForResource("Migrations", withExtension: "bundle")!
-            subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle(URL: bundleURL)!)
+            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, migrationsBundle: NSBundle(URL: bundleURL)!)
           }
 
           it("returns an array of versions") {
-            expect(subject.pendingMigrations().map {$0.version}).to(equal([20160117220032473, 20160117220038856, 20160117220050560]))
+            expect(subject.pendingMigrations().map {$0.version})
+              .to(equal([20160117220032473, 20160117220032475, 20160117220038856, 20160117220050560, 20160117220050567]))
           }
         }
       }
@@ -212,7 +268,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
           createMigrationTable(db)
         }
 
-        context("when there are no migrations in the bundle") {
+        context("when there are no migrations") {
           beforeEach {
             let bundleURL = testBundle.URLForResource("Migrations_empty", withExtension: "bundle")!
             subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle(URL: bundleURL)!)
@@ -223,25 +279,28 @@ class SQLiteMigrationManagerSpec: QuickSpec {
           }
         }
 
-        context("when there are migrations in the bundle") {
+        context("when there are migrations") {
           beforeEach {
             let bundleURL = testBundle.URLForResource("Migrations", withExtension: "bundle")!
-            subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle(URL: bundleURL)!)
+            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, migrationsBundle: NSBundle(URL: bundleURL)!)
           }
 
           context("when the migration table is empty") {
-            it("returns an empty array") {
-              expect(subject.pendingMigrations().map {$0.version}).to(equal([20160117220032473, 20160117220038856, 20160117220050560]))
+            it("returns an array of versions") {
+              expect(subject.pendingMigrations().map {$0.version})
+                .to(equal([20160117220032473, 20160117220032475, 20160117220038856, 20160117220050560, 20160117220050567]))
             }
           }
 
           context("when the migration table contains migrations") {
             beforeEach {
               insertMigration(db, version: 20160117220032473)
+              insertMigration(db, version: 20160117220032475)
             }
 
             it("returns an array of versions") {
-              expect(subject.pendingMigrations().map {$0.version}).to(equal([20160117220038856, 20160117220050560]))
+              expect(subject.pendingMigrations().map {$0.version}).to(equal([20160117220038856, 20160117220050560, 20160117220050567]))
             }
           }
         }
