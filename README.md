@@ -8,9 +8,91 @@
 
 SQLiteMigrationManager.swift is a schema management system for [SQLite.swift](https://github.com/stephencelis/SQLite.swift). It is heavily inspired by [FMDBMigrationManager](https://github.com/layerhq/FMDBMigrationManager).
 
+## Concept
+
+SQLiteMigrationManager.swift works by introducing a `schema_migrations` table into the database:
+
+```sql
+CREATE TABLE "schema_migrations" (
+  "version" INTEGER NOT NULL UNIQUE
+);
+```
+
+Each row i `schema_migrations` corresponds to a single migration that has been applied and represents a unique version of the schema. This schema supports any versioning scheme that is based on integers, but it is recommended that you utilize an integer that encodes a timestamp.
+
 ## Usage
 
-## Requirements
+### Creating the Migrations Table
+
+```swift
+let db = try Connection("path/to/store.sqlite")
+
+let manager = SQLiteMigrationManager(db: self.db)
+
+if !manager.hasMigrationsTable() {
+  try manager.createMigrationsTable()
+}
+```
+
+### Creating a SQL File Migrations
+
+Create a migration file in your migration bundle:
+
+```
+$ touch "`ruby -e "puts Time.now.strftime('%Y%m%d%H%M%S%3N').to_i"`"_name.sql
+```
+
+SQLiteMigrationManager.swift will only recognize filenames of the form `<version>_<name>.sql`. The following filenames are valid:
+
+* `1.sql`
+* `2_add_new_table.sql`
+* `3_add-new-table.sql`
+* `4_add new table.sql`
+
+### Creating a Swift Migration
+
+Swift based migrations can be implemented by conforming to the `Migration` protocol:
+
+```swift
+import Foundation
+import SQLiteMigrationManager
+import SQLite
+
+struct SwiftMigration: Migration {
+  var version: Int64 = 20160119131206685
+
+  func migrateDatabase(db: Connection) throws {
+    // perform the migration here
+  }
+}
+```
+
+### Migrating a Database
+
+```swift
+let db = try Connection("path/to/store.sqlite")
+
+let manager = SQLiteMigrationManager(db: self.db, migrations: [ SwiftMigration() ], bundle: NSBundle.mainBundle())
+
+if manager.needsMigration() {
+  try manager.migrateDatabase()
+}
+```
+
+### Inspecting the Schema State
+
+```swift
+let db = try Connection("path/to/store.sqlite")
+
+let manager = SQLiteMigrationManager(db: self.db, migrations: [ SwiftMigration() ], bundle: NSBundle.mainBundle())
+
+print("hasMigrationsTable() \(manager.hasMigrationsTable())")
+print("currentVersion()     \(manager.currentVersion())")
+print("originVersion()      \(manager.originVersion())")
+print("appliedVersions()    \(manager.appliedVersions())")
+print("pendingMigrations()  \(manager.pendingMigrations())")
+print("needsMigration()     \(manager.needsMigration())")
+```
 
 ## Installation
 
@@ -44,7 +126,7 @@ github "garriguv/SQLiteMigrationManager.swift"
 
 ## Author
 
-Vincent Garrigues, vincent.garrigues@gmail.com
+Vincent Garrigues, [vincent.garrigues@gmail.com](mailto:vincent.garrigues@gmail.com)
 
 ## License
 
