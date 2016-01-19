@@ -394,7 +394,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
           beforeEach {
             migrations = [
               AddRow(version: 2),
-              AddRow(version: 3),
+              FileMigration(url: testBundle.URLForResource("3_add-row", withExtension: "sql")!)!,
               AddRow(version: 4)
             ]
 

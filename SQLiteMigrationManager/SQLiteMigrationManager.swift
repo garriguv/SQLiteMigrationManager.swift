@@ -103,11 +103,7 @@ extension NSBundle {
         return false
       }
     }.map {
-      url in
-      let fileName: String = url.lastPathComponent!
-      return FileMigration(
-      version: Int64(fileName.substringToIndex(fileName.rangeOfString("_", options: .CaseInsensitiveSearch)!.startIndex))!,
-        url: url)
+      return FileMigration(url: $0)!
     } ?? []
   }
 }
@@ -128,7 +124,27 @@ public struct FileMigration: Migration {
   public let version: Int64
   public let url: NSURL
 
-  public func migrateDatabase(db: Connection) { }
+  public func migrateDatabase(db: Connection) throws {
+    let fileContents = try NSString(contentsOfURL: url, encoding: NSUTF8StringEncoding)
+    try db.execute(fileContents as String)
+  }
+}
+
+extension FileMigration {
+  public init?(url: NSURL) {
+    guard let fileName = url.lastPathComponent else {
+      return nil
+    }
+    guard let firstUndercoreRange = fileName.rangeOfString("_", options: .CaseInsensitiveSearch) else {
+      return nil
+    }
+    guard let version = Int64(fileName.substringToIndex(firstUndercoreRange.startIndex)) else {
+      return nil
+    }
+
+    self.version = version
+    self.url = url
+  }
 }
 
 extension FileMigration: CustomStringConvertible {
