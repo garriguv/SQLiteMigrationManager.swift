@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SQLiteMigrationManager.swift"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "Migration manager for SQLite.swift"
   s.description  = <<-DESC
   Migration manager for SQLite.swift, based on FMDBMigrationManager.
