@@ -132,4 +132,4 @@ Vincent Garrigues, [vincent.garrigues@gmail.com](mailto:vincent.garrigues@gmail.
 
 ## License
 
-HelloWorld is available under the MIT license. See the LICENSE file for more info.
+SQLiteMigrationManager.swift is available under the MIT license. See the LICENSE file for more info.
