@@ -1,7 +1,7 @@
 import Foundation
 import SQLite
 
-struct MigrationDB {
+private struct MigrationDB {
   static let table = Table("schema_migrations")
   static let version = Expression<Int64>("version")
 }
