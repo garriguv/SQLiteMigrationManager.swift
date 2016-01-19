@@ -54,14 +54,12 @@ public struct SQLiteMigrationManager {
   public func appliedVersions() -> [Int64] {
     do {
       var versions = [Int64]()
-      for v in try db.prepare(MigrationDB.table.select(MigrationDB.version).order(MigrationDB.version)) {
-        versions.append(v[MigrationDB.version])
+      try db.prepare(MigrationDB.table.select(MigrationDB.version).order(MigrationDB.version)).forEach {
+        versions.append($0[MigrationDB.version])
       }
       return versions
-    } catch is Result {
-      return []
     } catch {
-      fatalError("unknown error")
+      return []
     }
   }
 
