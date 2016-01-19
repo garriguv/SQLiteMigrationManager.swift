@@ -6,11 +6,22 @@ private struct MigrationDB {
   static let version = Expression<Int64>("version")
 }
 
+/// Interface for managing migrations for a SQLite database accessed via `SQLite.swift`.
 public struct SQLiteMigrationManager {
+  /// The `SQLite.swift` database `Connection`.
   private let db: Connection
 
+  /// All migrations discovered by the receiver.
   public let migrations: [Migration]
 
+  /**
+   Creates a new migration manager.
+
+   - parameters:
+     - db: The database `Connection`.
+     - migrations: An array of `Migration`. Defaults to `[]`.
+     - bundle: An `NSBundle` containing SQL migrations. Defaults to `nil`.
+   */
   public init(db: Connection, migrations: [Migration] = [], bundle: NSBundle? = nil) {
     self.db = db
     self.migrations = [
@@ -19,6 +30,9 @@ public struct SQLiteMigrationManager {
     ].flatten().sort { $0.version < $1.version }
   }
 
+  /**
+   Returns a `Bool` value that indicates if the `schema_migrations` table is present in the database managed by the receiver.
+   */
   public func hasMigrationsTable() -> Bool {
     let sqliteMaster = Table("sqlite_master")
     let type = Expression<String>("type")
@@ -27,12 +41,18 @@ public struct SQLiteMigrationManager {
     return db.scalar(sqliteMaster.filter(type == "table" && name == "schema_migrations").count) == 1;
   }
 
+  /**
+   Creates the `schema_migrations` table in the database managed by the receiver.
+   */
   public func createMigrationsTable() throws {
     try db.run(MigrationDB.table.create(ifNotExists: true) { table in
       table.column(MigrationDB.version, unique: true)
     })
   }
 
+  /**
+   The current version of the database managed by the receiver or `0` if the migrations table is not present or empty.
+   */
   public func currentVersion() -> Int64 {
     if !hasMigrationsTable() {
       return 0
@@ -41,6 +61,9 @@ public struct SQLiteMigrationManager {
     return db.scalar(MigrationDB.table.select(MigrationDB.version.max)) ?? 0
   }
 
+  /**
+   The origin version of the database managed by the receiver or `0` if the migrations table is not present or empty.
+   */
   public func originVersion() -> Int64 {
     if !hasMigrationsTable() {
       return 0
@@ -49,6 +72,9 @@ public struct SQLiteMigrationManager {
     return db.scalar(MigrationDB.table.select(MigrationDB.version.min)) ?? 0
   }
 
+  /**
+   An array of versions contained in the migrations table managed by the receiver. Empty if the migrations table is not present.
+   */
   public func appliedVersions() -> [Int64] {
     do {
       var versions = [Int64]()
@@ -61,6 +87,9 @@ public struct SQLiteMigrationManager {
     }
   }
 
+  /**
+   A subset of `migrations` that have not yet been applied to the database managed by the receiver.
+   */
   public func pendingMigrations() -> [Migration] {
     if !hasMigrationsTable() {
       return migrations
@@ -72,6 +101,9 @@ public struct SQLiteMigrationManager {
     }
   }
 
+  /**
+   Returns a `Bool` value that indicates if the database managed by the receiver is in need of migration.
+   */
   public func needsMigration() -> Bool {
     if !hasMigrationsTable() {
       return false
@@ -80,6 +112,14 @@ public struct SQLiteMigrationManager {
     return pendingMigrations().count > 0
   }
 
+  /**
+   Migrates the database managed by the receiver to the specified version.
+
+   Each individual migration is performed within a transaction that is rolled back if any error occurs.
+
+   - parameters:
+     - toVersion: The target version to migrate the database to. Defaults to `Int64.max`.
+   */
   public func migrateDatabase(toVersion toVersion: Int64 = Int64.max) throws {
     try pendingMigrations().filter { $0.version <= toVersion }.forEach { migration in
       try db.transaction {
@@ -100,9 +140,12 @@ extension NSBundle {
   }
 }
 
+/// The `Migration` protocol is adopted in order to provide migration of SQLite databases accessed via `SQLite.swift`
 public protocol Migration: CustomStringConvertible {
+  /// The numeric version of the migration.
   var version: Int64 { get }
 
+  /// Tells the receiver to apply its changes to the given database.
   func migrateDatabase(db: Connection) throws
 }
 
@@ -112,10 +155,14 @@ public extension Migration {
   }
 }
 
+/// The `FileMigration` struct is used to reference SQL file migrations.
 public struct FileMigration: Migration {
+  /// The numeric version of the migration.
   public let version: Int64
+  /// The `NSURL` of the migration file.
   public let url: NSURL
 
+  /// Tells the receiver to apply its changes to the given database.
   public func migrateDatabase(db: Connection) throws {
     let fileContents = try NSString(contentsOfURL: url, encoding: NSUTF8StringEncoding)
     try db.execute(fileContents as String)
@@ -123,6 +170,17 @@ public struct FileMigration: Migration {
 }
 
 extension FileMigration {
+  /**
+   Creates a new file migration.
+
+   File migrations should have filenames of the form:
+   - `1.sql`
+   - `2_add_new_table.sql`
+   - `3_add-new-table.sql`
+   - `4_add new table.sql`
+
+   - returns: A file migration if the filename matches `^(\d+)_?([\w\s-]*)\.sql$`.
+   */
   public init?(url: NSURL) {
     guard let filename = url.lastPathComponent else {
       return nil
