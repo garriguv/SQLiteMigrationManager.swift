@@ -231,6 +231,16 @@ class SQLiteMigrationManagerSpec: QuickSpec {
           }
         }
       }
+
+      describe("handling migration filenames") {
+        beforeEach {
+          subject = SQLiteMigrationManager(db: db, bundle: NSBundle(URL: testBundle.URLForResource("Migrations-names", withExtension: "bundle")!)!)
+        }
+
+        it("returns an array of migrations") {
+          expect(subject.migrations).to(haveCount(4))
+        }
+      }
     }
 
     describe("appliedVersions()") {

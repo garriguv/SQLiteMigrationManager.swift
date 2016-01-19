@@ -12,6 +12,7 @@
 		EBD6C6801C4C3ACC004270C5 /* Migrations_empty.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C67E1C4C3ACC004270C5 /* Migrations_empty.bundle */; };
 		EBD6C6811C4C3ACC004270C5 /* Migrations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C67F1C4C3ACC004270C5 /* Migrations.bundle */; };
 		EBD6C6831C4E5059004270C5 /* 3_add-row.sql in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C6821C4E5059004270C5 /* 3_add-row.sql */; };
+		EBD6C6A51C4E686C004270C5 /* Migrations-names.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C6A41C4E686C004270C5 /* Migrations-names.bundle */; };
 		EBD762D21C4BA3E800951FE6 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD762D11C4BA3E800951FE6 /* SQLite.framework */; };
 		EBD762D51C4BA3FA00951FE6 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD762D31C4BA3FA00951FE6 /* Nimble.framework */; };
 		EBD762D61C4BA3FA00951FE6 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD762D41C4BA3FA00951FE6 /* Quick.framework */; };
@@ -34,6 +35,7 @@
 		EBD6C67E1C4C3ACC004270C5 /* Migrations_empty.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Migrations_empty.bundle; sourceTree = "<group>"; };
 		EBD6C67F1C4C3ACC004270C5 /* Migrations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Migrations.bundle; sourceTree = "<group>"; };
 		EBD6C6821C4E5059004270C5 /* 3_add-row.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3_add-row.sql"; sourceTree = "<group>"; };
+		EBD6C6A41C4E686C004270C5 /* Migrations-names.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Migrations-names.bundle"; sourceTree = "<group>"; };
 		EBD762D11C4BA3E800951FE6 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = "Carthage/Checkouts/SQLite.swift/build/Debug-iphoneos/SQLite.framework"; sourceTree = "<group>"; };
 		EBD762D31C4BA3FA00951FE6 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "Carthage/Checkouts/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
 		EBD762D41C4BA3FA00951FE6 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Carthage/Checkouts/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			children = (
 				EBD6C6821C4E5059004270C5 /* 3_add-row.sql */,
 				EBD6C67E1C4C3ACC004270C5 /* Migrations_empty.bundle */,
+				EBD6C6A41C4E686C004270C5 /* Migrations-names.bundle */,
 				EBD6C67F1C4C3ACC004270C5 /* Migrations.bundle */,
 			);
 			path = resources;
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBD6C6811C4C3ACC004270C5 /* Migrations.bundle in Resources */,
+				EBD6C6A51C4E686C004270C5 /* Migrations-names.bundle in Resources */,
 				EBD6C6831C4E5059004270C5 /* 3_add-row.sql in Resources */,
 				EBD6C6801C4C3ACC004270C5 /* Migrations_empty.bundle in Resources */,
 			);

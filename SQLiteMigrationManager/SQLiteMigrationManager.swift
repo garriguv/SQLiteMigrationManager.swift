@@ -92,19 +92,11 @@ public struct SQLiteMigrationManager {
 
 extension NSBundle {
   private func migrations() -> [Migration] {
-    let regex = try! NSRegularExpression(pattern: "^(\\d+)_([\\w\\s-]+)\\.sql$", options: .CaseInsensitive)
-
-    return URLsForResourcesWithExtension("sql", subdirectory: nil)?.filter {
-      url in
-      if let fileName = url.lastPathComponent,
-      let result = regex.firstMatchInString(fileName, options: .ReportProgress, range: NSMakeRange(0, fileName.startIndex.distanceTo(fileName.endIndex))) {
-        return result.numberOfRanges == 3
-      } else {
-        return false
-      }
-    }.map {
-      return FileMigration(url: $0)!
-    } ?? []
+    if let urls = URLsForResourcesWithExtension("sql", subdirectory: nil) {
+      return urls.flatMap { FileMigration(url: $0) }
+    } else {
+      return []
+    }
   }
 }
 
@@ -132,18 +124,26 @@ public struct FileMigration: Migration {
 
 extension FileMigration {
   public init?(url: NSURL) {
-    guard let fileName = url.lastPathComponent else {
+    guard let filename = url.lastPathComponent else {
       return nil
     }
-    guard let firstUndercoreRange = fileName.rangeOfString("_", options: .CaseInsensitiveSearch) else {
-      return nil
-    }
-    guard let version = Int64(fileName.substringToIndex(firstUndercoreRange.startIndex)) else {
+    guard let version = FileMigration.extractVersion(filename) else {
       return nil
     }
 
     self.version = version
     self.url = url
+  }
+}
+
+extension FileMigration {
+  static private let regex = try! NSRegularExpression(pattern: "^(\\d+)_?([\\w\\s-]*)\\.sql$", options: .CaseInsensitive)
+
+  static private func extractVersion(filename: String) -> Int64? {
+    if let result = regex.firstMatchInString(filename, options: .ReportProgress, range: NSMakeRange(0, filename.startIndex.distanceTo(filename.endIndex))) where result.numberOfRanges == 3 {
+      return Int64((filename as NSString).substringWithRange(result.rangeAtIndex(1)))
+    }
+    return nil
   }
 }
 
