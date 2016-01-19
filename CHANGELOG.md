@@ -3,10 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.0.4](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.0.4)
+
+* Add `CHANGELOG.md`.
+* Fix travis `before_deploy` step.
+* Add example project.
+
 ## [0.0.3](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.0.3)
 
 * Convenience initializers for `QLiteMigrationManager`.
-* Fix travis `before_deploy` step.
 
 ## [0.0.2](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.0.2)
 

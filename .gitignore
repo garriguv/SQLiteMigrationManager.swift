@@ -32,5 +32,9 @@ xcuserdata
 # Carthage
 Carthage/Build
 
+# CocoaPods
+Pods/
+Podfile.lock
+
 # AppCode
 .idea/

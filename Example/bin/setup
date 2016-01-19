@@ -1,0 +1,20 @@
+#!/bin/sh
+
+cocoapods_installed() {
+  command -v pod >/dev/null
+}
+
+install_dependencies() {
+  pod install
+}
+
+main() {
+  if ! cocoapods_installed; then
+    echo "cocoapods is not installed."
+    echo "See https://cocoapods.org/ for install instructions."
+    exit 1
+  fi
+
+  install_dependencies
+}
+main

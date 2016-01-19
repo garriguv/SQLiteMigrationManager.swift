@@ -22,6 +22,8 @@ Each row in `schema_migrations` corresponds to a single migration that has been 
 
 ## Usage
 
+Have a look at the [example project](https://github.com/garriguv/SQLiteMigrationManager.swift/tree/master/Example).
+
 ### Creating the Migrations Table
 
 ```swift
