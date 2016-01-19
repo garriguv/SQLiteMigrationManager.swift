@@ -31,6 +31,38 @@ public struct SQLiteMigrationManager {
   }
 
   /**
+   Creates a new migration manager.
+
+   - parameters:
+     - url: The url to a database with which to initialize the migration manager.
+     - migrations: An array of `Migration`. Defaults to `[]`.
+     - bundle: An `NSBundle` containing SQL migrations. Defaults to `nil`.
+   */
+  public init?(url: NSURL, migrations: [Migration] = [], bundle: NSBundle? = nil) {
+    do {
+      let db = try Connection(url.absoluteString)
+      self.init(db: db, migrations: migrations, bundle: bundle)
+    } catch {
+      return nil
+    }
+  }
+
+  /**
+   Creates a new migration manager.
+
+   - parameters:
+     - path: The path to a database with which to initialize the migration manager.
+     - migrations: An array of `Migration`. Defaults to `[]`.
+     - bundle: An `NSBundle` containing SQL migrations. Defaults to `nil`.
+   */
+  public init?(path: String, migrations: [Migration] = [], bundle: NSBundle? = nil) {
+    if let url = NSURL(string: path) {
+      self.init(url: url, migrations: migrations, bundle: bundle)
+    }
+    return nil
+  }
+
+  /**
    Returns a `Bool` value that indicates if the `schema_migrations` table is present in the database managed by the receiver.
    */
   public func hasMigrationsTable() -> Bool {
