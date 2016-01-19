@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.0.5](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.0.5)
+
+* Fix travis `before_deploy` step.
+
 ## [0.0.4](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.0.4)
 
 * Add `CHANGELOG.md`.

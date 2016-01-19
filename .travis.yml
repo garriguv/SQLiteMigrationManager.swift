@@ -12,7 +12,7 @@ env:
 before_script:
 - bin/setup
 before_deploy:
-- bin/setup
+- carthage build --platform iOS --no-skip-current
 - carthage archive $FRAMEWORK_NAME
 deploy:
   provider: releases
