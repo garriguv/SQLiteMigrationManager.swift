@@ -1,13 +1,15 @@
 import Foundation
 import SQLite
 
+struct MigrationDB {
+  static let table = Table("schema_migrations")
+  static let version = Expression<Int64>("version")
+}
+
 public struct SQLiteMigrationManager {
   private let db: Connection
   private let swiftMigrations: [Migration]
   private let migrationsBundle: NSBundle?
-
-  private let schemaMigrations = Table("schema_migrations")
-  private let version = Expression<Int64>("version")
 
   public init(db: Connection, migrations: [Migration] = [], migrationsBundle: NSBundle? = nil) {
     self.db = db
@@ -24,8 +26,8 @@ public struct SQLiteMigrationManager {
   }
 
   public func createMigrationsTable() throws {
-    try db.run(schemaMigrations.create(ifNotExists: true) { table in
-      table.column(version, unique: true)
+    try db.run(MigrationDB.table.create(ifNotExists: true) { table in
+      table.column(MigrationDB.version, unique: true)
     })
   }
 
@@ -34,7 +36,7 @@ public struct SQLiteMigrationManager {
       return 0
     }
 
-    return db.scalar(schemaMigrations.select(version.max)) ?? 0
+    return db.scalar(MigrationDB.table.select(MigrationDB.version.max)) ?? 0
   }
 
   public func originVersion() -> Int64 {
@@ -42,7 +44,7 @@ public struct SQLiteMigrationManager {
       return 0
     }
 
-    return db.scalar(schemaMigrations.select(version.min)) ?? 0
+    return db.scalar(MigrationDB.table.select(MigrationDB.version.min)) ?? 0
   }
 
   public func migrations() -> [Migration] {
@@ -52,8 +54,8 @@ public struct SQLiteMigrationManager {
   public func appliedVersions() -> [Int64] {
     do {
       var versions = [Int64]()
-      for v in try db.prepare(schemaMigrations.select(version).order(version)) {
-        versions.append(v[version])
+      for v in try db.prepare(MigrationDB.table.select(MigrationDB.version).order(MigrationDB.version)) {
+        versions.append(v[MigrationDB.version])
       }
       return versions
     } catch is Result {
@@ -82,6 +84,15 @@ public struct SQLiteMigrationManager {
     return pendingMigrations().count > 0
   }
 
+  public func migrateDatabase(toVersion toVersion: Int64 = Int64.max) throws {
+    try pendingMigrations().filter { $0.version <= toVersion }.forEach { migration in
+      try db.transaction {
+        try migration.migrateDatabase(self.db)
+        try self.db.run(MigrationDB.table.insert(MigrationDB.version <- migration.version))
+      }
+    }
+  }
+
   private func bundleMigrations() -> [Migration] {
     guard let bundle = migrationsBundle else {
       return []
@@ -107,18 +118,23 @@ public struct SQLiteMigrationManager {
   }
 }
 
-public protocol Migration {
+public protocol Migration: CustomStringConvertible {
   var version: Int64 { get }
+
+  func migrateDatabase(db: Connection) throws
+}
+
+public extension Migration {
+  var description: String {
+    return "\(version)"
+  }
 }
 
 public struct FileMigration: Migration {
   public let version: Int64
   public let url: NSURL
 
-  public init(version: Int64, url: NSURL) {
-    self.version = version
-    self.url = url
-  }
+  public func migrateDatabase(db: Connection) { }
 }
 
 extension FileMigration: CustomStringConvertible {
