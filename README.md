@@ -18,7 +18,7 @@ CREATE TABLE "schema_migrations" (
 );
 ```
 
-Each row i `schema_migrations` corresponds to a single migration that has been applied and represents a unique version of the schema. This schema supports any versioning scheme that is based on integers, but it is recommended that you utilize an integer that encodes a timestamp.
+Each row in `schema_migrations` corresponds to a single migration that has been applied and represents a unique version of the schema. This schema supports any versioning scheme that is based on integers, but it is recommended that you utilize an integer that encodes a timestamp.
 
 ## Usage
 
