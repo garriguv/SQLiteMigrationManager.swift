@@ -3,14 +3,8 @@ import Nimble
 import SQLiteMigrationManager
 import SQLite
 
-struct SomeMigration: Migration {
-  let version: Int64 = 20160117220032475
-
-  func migrateDatabase(db: Connection) { }
-}
-
-struct SomeOtherMigration: Migration {
-  let version: Int64 = 20160117220050567
+struct TestMigration: Migration {
+  let version: Int64
 
   func migrateDatabase(db: Connection) { }
 }
@@ -57,7 +51,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
     beforeEach {
       try! db = Connection(.Temporary)
 
-      subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle())
+      subject = SQLiteMigrationManager(db: db)
 
       testBundle = NSBundle(forClass: self.dynamicType)
     }
@@ -174,27 +168,27 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
         context("when migrations are supplied") {
           beforeEach {
-            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations, migrationsBundle: NSBundle(URL: bundleURL)!)
+            let migrations: [Migration] = [ TestMigration(version: 1), TestMigration(version: 0) ]
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: NSBundle(URL: bundleURL)!)
           }
 
           it("returns an array of migrations") {
-            expect(subject.migrations()).to(haveCount(2))
+            expect(subject.migrations).to(haveCount(2))
           }
 
           it("returns an ordered array of migrations") {
-            expect(subject.migrations()[0].version).to(equal(20160117220032475))
-            expect(subject.migrations()[1].version).to(equal(20160117220050567))
+            expect(subject.migrations[0].version).to(equal(0))
+            expect(subject.migrations[1].version).to(equal(1))
           }
         }
 
         context("when migrations are not supplied") {
           beforeEach {
-            subject = SQLiteMigrationManager(db: db, migrations: [], migrationsBundle: NSBundle(URL: bundleURL)!)
+            subject = SQLiteMigrationManager(db: db, migrations: [], bundle: NSBundle(URL: bundleURL)!)
           }
 
           it("returns an empty array") {
-            expect(subject.migrations()).to(beEmpty())
+            expect(subject.migrations).to(beEmpty())
           }
         }
       }
@@ -208,32 +202,32 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
         context("when migrations are supplied") {
           beforeEach {
-            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations, migrationsBundle: NSBundle(URL: bundleURL)!)
+            let migrations: [Migration] = [ TestMigration(version: 0), TestMigration(version: 20160117220050567) ]
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: NSBundle(URL: bundleURL)!)
           }
 
           it("returns an array of migrations") {
-            expect(subject.migrations()).to(haveCount(5))
+            expect(subject.migrations).to(haveCount(5))
           }
 
           it("returns an ordered array of migrations") {
-            expect(subject.migrations()[0].version).to(equal(20160117220032473))
-            expect(subject.migrations()[4].version).to(equal(20160117220050567))
+            expect(subject.migrations[0].version).to(equal(0))
+            expect(subject.migrations[4].version).to(equal(20160117220050567))
           }
         }
 
         context("when migrations are not supplied") {
           beforeEach {
-            subject = SQLiteMigrationManager(db: db, migrations: [], migrationsBundle: NSBundle(URL: bundleURL)!)
+            subject = SQLiteMigrationManager(db: db, migrations: [], bundle: NSBundle(URL: bundleURL)!)
           }
 
           it("returns an array of migrations") {
-            expect(subject.migrations()).to(haveCount(3))
+            expect(subject.migrations).to(haveCount(3))
           }
 
           it("returns an ordered array of migrations") {
-            expect(subject.migrations()[0].version).to(equal(20160117220032473))
-            expect(subject.migrations()[2].version).to(equal(20160117220050560))
+            expect(subject.migrations[0].version).to(equal(20160117220032473))
+            expect(subject.migrations[2].version).to(equal(20160117220050560))
           }
         }
       }
@@ -276,7 +270,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
         context("when there are no migrations") {
           beforeEach {
             let bundleURL = testBundle.URLForResource("Migrations_empty", withExtension: "bundle")!
-            subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle(URL: bundleURL)!)
+            subject = SQLiteMigrationManager(db: db, bundle: NSBundle(URL: bundleURL)!)
           }
 
           it("returns an empty array") {
@@ -287,13 +281,13 @@ class SQLiteMigrationManagerSpec: QuickSpec {
         context("when there are migrations") {
           beforeEach {
             let bundleURL = testBundle.URLForResource("Migrations", withExtension: "bundle")!
-            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations, migrationsBundle: NSBundle(URL: bundleURL)!)
+            let migrations: [Migration] = [ TestMigration(version: 0), TestMigration(version: 20160117220050567) ]
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: NSBundle(URL: bundleURL)!)
           }
 
           it("returns an array of versions") {
             expect(subject.pendingMigrations().map {$0.version})
-              .to(equal([20160117220032473, 20160117220032475, 20160117220038856, 20160117220050560, 20160117220050567]))
+              .to(equal([0, 20160117220032473, 20160117220038856, 20160117220050560, 20160117220050567]))
           }
         }
       }
@@ -306,7 +300,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
         context("when there are no migrations") {
           beforeEach {
             let bundleURL = testBundle.URLForResource("Migrations_empty", withExtension: "bundle")!
-            subject = SQLiteMigrationManager(db: db, migrationsBundle: NSBundle(URL: bundleURL)!)
+            subject = SQLiteMigrationManager(db: db, bundle: NSBundle(URL: bundleURL)!)
           }
 
           it("returns an empty array") {
@@ -317,21 +311,21 @@ class SQLiteMigrationManagerSpec: QuickSpec {
         context("when there are migrations") {
           beforeEach {
             let bundleURL = testBundle.URLForResource("Migrations", withExtension: "bundle")!
-            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations, migrationsBundle: NSBundle(URL: bundleURL)!)
+            let migrations: [Migration] = [ TestMigration(version: 0), TestMigration(version: 20160117220050567) ]
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: NSBundle(URL: bundleURL)!)
           }
 
           context("when the migration table is empty") {
             it("returns an array of versions") {
               expect(subject.pendingMigrations().map {$0.version})
-                .to(equal([20160117220032473, 20160117220032475, 20160117220038856, 20160117220050560, 20160117220050567]))
+                .to(equal([0, 20160117220032473, 20160117220038856, 20160117220050560, 20160117220050567]))
             }
           }
 
           context("when the migration table contains migrations") {
             beforeEach {
+              insertMigration(db, version: 0)
               insertMigration(db, version: 20160117220032473)
-              insertMigration(db, version: 20160117220032475)
             }
 
             it("returns an array of versions") {
@@ -350,9 +344,9 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
         context("when there are pending migrations") {
           beforeEach {
-            insertMigration(db, version: 20160117220032475)
+            insertMigration(db, version: 0)
 
-            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
+            let migrations: [Migration] = [ TestMigration(version: 0), TestMigration(version: 1) ]
             subject = SQLiteMigrationManager(db: db, migrations: migrations)
           }
 
@@ -363,10 +357,10 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
         context("when there are no pending migrations") {
           beforeEach {
-            insertMigration(db, version: 20160117220032475)
-            insertMigration(db, version: 20160117220050567)
+            insertMigration(db, version: 0)
+            insertMigration(db, version: 1)
 
-            let migrations: [Migration] = [ SomeMigration(), SomeOtherMigration() ]
+            let migrations: [Migration] = [ TestMigration(version: 0), TestMigration(version: 1) ]
             subject = SQLiteMigrationManager(db: db, migrations: migrations)
           }
 
