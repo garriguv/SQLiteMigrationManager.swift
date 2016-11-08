@@ -6,7 +6,7 @@ import SQLite
 struct TestMigration: Migration {
   let version: Int64
 
-  func migrateDatabase(db: Connection) { }
+  func migrateDatabase(_ db: Connection) { }
 }
 
 struct TestDB {
@@ -17,7 +17,7 @@ struct TestDB {
 struct CreateTable: Migration {
   let version: Int64
 
-  func migrateDatabase(db: Connection) throws {
+  func migrateDatabase(_ db: Connection) throws {
     try db.run(TestDB.table.create { t in
       t.column(TestDB.column)
     })
@@ -27,16 +27,16 @@ struct CreateTable: Migration {
 struct AddRow: Migration {
   let version: Int64
 
-  func migrateDatabase(db: Connection) throws {
-    try db.run(TestDB.table.insert(TestDB.column <- Int(version)))
+  func migrateDatabase(_ db: Connection) throws {
+    let _ = try db.run(TestDB.table.insert(TestDB.column <- Int(version)))
   }
 }
 
 struct Throwing: Migration {
   let version: Int64
 
-  func migrateDatabase(db: Connection) throws {
-    throw Result.Error(message: "Test error", code: 0, statement: nil)
+  func migrateDatabase(_ db: Connection) throws {
+    throw Result.error(message: "Test error", code: 0, statement: nil)
   }
 }
 
@@ -46,14 +46,14 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
     var db: Connection!
 
-    var testBundle: NSBundle!
+    var testBundle: Bundle!
 
     beforeEach {
-      try! db = Connection(.Temporary)
+      try! db = Connection(.temporary)
 
       subject = SQLiteMigrationManager(db: db)
 
-      testBundle = NSBundle(forClass: self.dynamicType)
+      testBundle = Bundle(for: type(of: self))
     }
 
     describe("hasMigrationsTable()") {
@@ -160,16 +160,16 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
     describe("migrations()") {
       context("when there are no migrations in the bundle") {
-        var bundleURL: NSURL!
+        var bundleURL: URL!
 
         beforeEach {
-          bundleURL = testBundle.URLForResource("Migrations_empty", withExtension: "bundle")!
+          bundleURL = testBundle.url(forResource: "Migrations_empty", withExtension: "bundle")!
         }
 
         context("when migrations are supplied") {
           beforeEach {
             let migrations: [Migration] = [ TestMigration(version: 1), TestMigration(version: 0) ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: NSBundle(URL: bundleURL)!)
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: Bundle(url: bundleURL)!)
           }
 
           it("returns an array of migrations") {
@@ -184,7 +184,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
         context("when migrations are not supplied") {
           beforeEach {
-            subject = SQLiteMigrationManager(db: db, migrations: [], bundle: NSBundle(URL: bundleURL)!)
+            subject = SQLiteMigrationManager(db: db, migrations: [], bundle: Bundle(url: bundleURL)!)
           }
 
           it("returns an empty array") {
@@ -194,16 +194,16 @@ class SQLiteMigrationManagerSpec: QuickSpec {
       }
 
       context("when there are migrations in the bundle") {
-        var bundleURL: NSURL!
+        var bundleURL: URL!
 
         beforeEach {
-          bundleURL = testBundle.URLForResource("Migrations", withExtension: "bundle")!
+          bundleURL = testBundle.url(forResource: "Migrations", withExtension: "bundle")!
         }
 
         context("when migrations are supplied") {
           beforeEach {
             let migrations: [Migration] = [ TestMigration(version: 0), TestMigration(version: 20160117220050567) ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: NSBundle(URL: bundleURL)!)
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: Bundle(url: bundleURL)!)
           }
 
           it("returns an array of migrations") {
@@ -218,7 +218,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
         context("when migrations are not supplied") {
           beforeEach {
-            subject = SQLiteMigrationManager(db: db, migrations: [], bundle: NSBundle(URL: bundleURL)!)
+            subject = SQLiteMigrationManager(db: db, migrations: [], bundle: Bundle(url: bundleURL)!)
           }
 
           it("returns an array of migrations") {
@@ -234,7 +234,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
       describe("handling migration filenames") {
         beforeEach {
-          subject = SQLiteMigrationManager(db: db, bundle: NSBundle(URL: testBundle.URLForResource("Migrations-names", withExtension: "bundle")!)!)
+          subject = SQLiteMigrationManager(db: db, bundle: Bundle(url: testBundle.url(forResource: "Migrations-names", withExtension: "bundle")!)!)
         }
 
         it("returns an array of migrations") {
@@ -279,8 +279,8 @@ class SQLiteMigrationManagerSpec: QuickSpec {
       context("when there is no migration table") {
         context("when there are no migrations") {
           beforeEach {
-            let bundleURL = testBundle.URLForResource("Migrations_empty", withExtension: "bundle")!
-            subject = SQLiteMigrationManager(db: db, bundle: NSBundle(URL: bundleURL)!)
+            let bundleURL = testBundle.url(forResource: "Migrations_empty", withExtension: "bundle")!
+            subject = SQLiteMigrationManager(db: db, bundle: Bundle(url: bundleURL)!)
           }
 
           it("returns an empty array") {
@@ -290,9 +290,9 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
         context("when there are migrations") {
           beforeEach {
-            let bundleURL = testBundle.URLForResource("Migrations", withExtension: "bundle")!
+            let bundleURL = testBundle.url(forResource: "Migrations", withExtension: "bundle")!
             let migrations: [Migration] = [ TestMigration(version: 0), TestMigration(version: 20160117220050567) ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: NSBundle(URL: bundleURL)!)
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: Bundle(url: bundleURL)!)
           }
 
           it("returns an array of versions") {
@@ -309,8 +309,8 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
         context("when there are no migrations") {
           beforeEach {
-            let bundleURL = testBundle.URLForResource("Migrations_empty", withExtension: "bundle")!
-            subject = SQLiteMigrationManager(db: db, bundle: NSBundle(URL: bundleURL)!)
+            let bundleURL = testBundle.url(forResource: "Migrations_empty", withExtension: "bundle")!
+            subject = SQLiteMigrationManager(db: db, bundle: Bundle(url: bundleURL)!)
           }
 
           it("returns an empty array") {
@@ -320,9 +320,9 @@ class SQLiteMigrationManagerSpec: QuickSpec {
 
         context("when there are migrations") {
           beforeEach {
-            let bundleURL = testBundle.URLForResource("Migrations", withExtension: "bundle")!
+            let bundleURL = testBundle.url(forResource: "Migrations", withExtension: "bundle")!
             let migrations: [Migration] = [ TestMigration(version: 0), TestMigration(version: 20160117220050567) ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: NSBundle(URL: bundleURL)!)
+            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: Bundle(url: bundleURL)!)
           }
 
           context("when the migration table is empty") {
@@ -404,7 +404,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
           beforeEach {
             migrations = [
               AddRow(version: 2),
-              FileMigration(url: testBundle.URLForResource("3_add-row", withExtension: "sql")!)!,
+              FileMigration(url: testBundle.url(forResource: "3_add-row", withExtension: "sql")!)!,
               AddRow(version: 4)
             ]
 
@@ -414,7 +414,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
           it("performs the migration") {
             try! subject.migrateDatabase(toVersion: 3)
 
-            expect(db.scalar(TestDB.table.count)).to(equal(3))
+            expect(try! db.scalar(TestDB.table.count)).to(equal(3))
           }
 
           it("adds the migrations to the migrations table") {
@@ -444,7 +444,7 @@ class SQLiteMigrationManagerSpec: QuickSpec {
               try subject.migrateDatabase()
             } catch { }
 
-            expect(db.scalar(TestDB.table.count)).to(equal(2))
+            expect(try! db.scalar(TestDB.table.count)).to(equal(2))
           }
 
           it("adds the migrations to the migrations table") {
@@ -460,11 +460,11 @@ class SQLiteMigrationManagerSpec: QuickSpec {
   }
 }
 
-private func createMigrationTable(db: Connection) {
+private func createMigrationTable(_ db: Connection) {
   try! db.execute("CREATE TABLE schema_migrations(version INTEGER UNIQUE NOT NULL);")
 }
 
-private func insertMigration(db: Connection, version: Int64) {
+private func insertMigration(_ db: Connection, version: Int64) {
   let stmt = try! db.prepare("INSERT INTO schema_migrations(version) VALUES (?);")
   try! stmt.run(version)
 }
