@@ -1,7 +1,7 @@
 language: objective-c
 xcode_workspace: SQLiteMigrationManager.xcworkspace
 xcode_scheme: SQLiteMigrationManager
-osx_image: xcode8.1
+osx_image: xcode8
 xcode_sdk: iphonesimulator10.0
 env:
   global:
