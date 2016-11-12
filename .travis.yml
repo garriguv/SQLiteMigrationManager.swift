@@ -1,16 +1,18 @@
 language: objective-c
-xcode_workspace: SQLiteMigrationManager.xcworkspace
-xcode_scheme: SQLiteMigrationManager
 osx_image: xcode8
-xcode_sdk: iphonesimulator10.0
 env:
   global:
   - FRAMEWORK_NAME=SQLiteMigrationManager
+before_install:
+  - brew update
+  - brew install xcpretty
 before_script:
-- bin/setup
+  - bin/setup
+script:
+  - travis_retry ./bin/run-tests
 before_deploy:
-- carthage build --platform iOS --no-skip-current
-- carthage archive $FRAMEWORK_NAME
+  - carthage build --platform iOS --no-skip-current
+  - carthage archive $FRAMEWORK_NAME
 deploy:
   provider: releases
   api_key:

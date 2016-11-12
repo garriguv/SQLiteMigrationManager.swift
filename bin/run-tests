@@ -1,0 +1,11 @@
+#!/bin/sh
+
+main() {
+  xcodebuild \
+    -workspace SQLiteMigrationManager.xcworkspace \
+    -scheme SQLiteMigrationManager\
+    -sdk iphonesimulator10.0\
+    -destination "platform=iOS Simulator,name=iPhone 6,OS=iOS 10.0"\
+    test
+}
+main
