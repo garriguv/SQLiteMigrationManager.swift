@@ -28,23 +28,23 @@ struct Database {
 }
 
 extension Database {
-  static func storeURL() -> NSURL {
-    guard let documentsURL = NSURL(string: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) else {
+  static func storeURL() -> URL {
+    guard let documentsURL = URL(string: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]) else {
       fatalError("could not get user documents directory URL")
     }
 
-    return documentsURL.URLByAppendingPathComponent("store.sqlite")
+    return documentsURL.appendingPathComponent("store.sqlite")
   }
 
   static func migrations() -> [Migration] {
     return [ SeedDB() ]
   }
 
-  static func migrationsBundle() -> NSBundle {
-    guard let bundleURL = NSBundle.mainBundle().URLForResource("Migrations", withExtension: "bundle") else {
+  static func migrationsBundle() -> Bundle {
+    guard let bundleURL = Bundle.main.url(forResource: "Migrations", withExtension: "bundle") else {
       fatalError("could not find migrations bundle")
     }
-    guard let bundle = NSBundle(URL: bundleURL) else {
+    guard let bundle = Bundle(url: bundleURL) else {
       fatalError("could not load migrations bundle")
     }
 
