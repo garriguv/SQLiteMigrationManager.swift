@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file.
 
 ## [0.0.3](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.0.3)
 
-* Convenience initializers for `QLiteMigrationManager`.
+* Convenience initializers for `SQLiteMigrationManager`.
 
 ## [0.0.2](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.0.2)
 
