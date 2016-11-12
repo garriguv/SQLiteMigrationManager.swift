@@ -3,9 +3,6 @@ osx_image: xcode8
 env:
   global:
   - FRAMEWORK_NAME=SQLiteMigrationManager
-before_install:
-  - brew update
-  - brew install xcpretty
 before_script:
   - bin/setup
 script:
