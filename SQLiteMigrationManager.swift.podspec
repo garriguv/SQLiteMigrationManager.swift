@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author             = { "Vincent Garrigues" => "vincent.garrigues@gmail.com" }
   s.social_media_url   = "http://twitter.com/garriguv"
 
-  s.platform     = :ios, "8.0"
+  s.platform     = :ios, "9.0"
   s.module_name  = 'SQLiteMigrationManager'
 
   s.source       = { :git => "https://github.com/garriguv/SQLiteMigrationManager.swift.git", tag: s.version.to_s, submodules: true }
