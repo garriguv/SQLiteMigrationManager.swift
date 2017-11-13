@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+set -euo pipefail
 
 carthage_installed() {
   command -v carthage >/dev/null
@@ -17,4 +19,4 @@ main() {
 
   install_dependencies
 }
-main
+main "$@"
