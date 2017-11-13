@@ -41,7 +41,7 @@ if !manager.hasMigrationsTable() {
 Create a migration file in your migration bundle:
 
 ```
-$ touch "`ruby -e "puts Time.now.strftime('%Y%m%d%H%M%S%3N').to_i"`"_name.sql
+$ touch "`ruby -e "puts Time.now.strftime('%Y%m%d%H%M%S').to_i"`"_name.sql
 ```
 
 SQLiteMigrationManager.swift will only recognize filenames of the form `<version>_<name>.sql`. The following filenames are valid:
@@ -61,7 +61,7 @@ import SQLiteMigrationManager
 import SQLite
 
 struct SwiftMigration: Migration {
-  var version: Int64 = 20160119131206685
+  var version: Int64 = 2016_01_19_13_12_06
 
   func migrateDatabase(db: Connection) throws {
     // perform the migration here
