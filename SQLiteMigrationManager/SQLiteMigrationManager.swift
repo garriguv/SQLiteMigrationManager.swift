@@ -243,7 +243,7 @@ extension FileMigration {
 
   static fileprivate func extractVersion(_ filename: String) -> Int64? {
     if let result = regex.firstMatch(in: filename, options: .reportProgress, range: NSMakeRange(0, filename.characters.distance(from: filename.startIndex, to: filename.endIndex))), result.numberOfRanges == 3 {
-      return Int64((filename as NSString).substring(with: result.rangeAt(1)))
+      return Int64((filename as NSString).substring(with: result.range(at: 1)))
     }
     return nil
   }
