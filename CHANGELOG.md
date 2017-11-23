@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.3.0](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.3.0)
+
+* Swift 4.0 support.
+
 ## [0.2.0](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.2.0)
 
 * Drop iOS 8 support.
