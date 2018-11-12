@@ -363,6 +363,7 @@
 		EBE813F91C4BA00200EE04E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
@@ -384,6 +385,7 @@
 		EBE813FA1C4BA00200EE04E8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
