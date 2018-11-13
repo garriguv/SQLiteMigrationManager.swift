@@ -148,6 +148,33 @@ final class SQLiteMigrationManagerTests: XCTestCase {
 
     XCTAssertEqual(result.count, 4, "returns all migrations")
   }
+
+  // MARK: appliedVersions
+
+  func test_appliedVersions_noTable() {
+    let result = subject.appliedVersions()
+
+    XCTAssertTrue(result.isEmpty, "returns an empty array when there is no migrations table")
+  }
+
+  func test_appliedVersions_withTable_empty() {
+    createMigrationTable()
+
+    let result = subject.appliedVersions()
+
+    XCTAssertTrue(result.isEmpty, "returns an empty array when there is an empty migrations table")
+  }
+
+  func test_appliedVersions_withTable_notEmpty() {
+    createMigrationTable()
+    insertMigration(version: 2)
+    insertMigration(version: 3)
+    insertMigration(version: 5)
+
+    let result = subject.appliedVersions()
+
+    XCTAssertEqual(result, [2, 3, 5], "returns an array of applied migration versions")
+  }
 }
 
 extension SQLiteMigrationManagerTests {
