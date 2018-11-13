@@ -9,5 +9,6 @@ main() {
     -sdk iphonesimulator12.1\
     -destination "platform=iOS Simulator,name=iPhone X,OS=12.1"\
     test
+  swift build
 }
 main "$@"
