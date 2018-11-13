@@ -251,6 +251,44 @@ final class SQLiteMigrationManagerTests: XCTestCase {
 
     XCTAssertFalse(result, "returns false when there are no pending migrations")
   }
+
+  // MARK: - migrateDatabase
+
+  func test_migrateDatabase_withPendingMigrations_success() throws {
+    createMigrationTable()
+    try CreateTable(version: 0).migrateDatabase(db)
+    try AddRow(version: 1).migrateDatabase(db)
+    subject = makeSubject(migrations: [AddRow(version: 2), FileMigration(url: testBundle.url(forResource: "3_add-row", withExtension: "sql")!)!, AddRow(version: 4)])
+
+    XCTAssertNoThrow(try subject.migrateDatabase(), "successfully migrates database")
+
+    XCTAssertEqual(try db.scalar(TestDB.table.count), 4, "applies the migrations")
+    XCTAssertEqual(subject.appliedVersions(), [2, 3, 4], "adds the migrations to the migrations table")
+  }
+
+  func test_migrateDatabase_withPendingMigrations_failure() throws {
+    createMigrationTable()
+    try CreateTable(version: 0).migrateDatabase(db)
+    try AddRow(version: 1).migrateDatabase(db)
+    subject = makeSubject(migrations: [AddRow(version: 2), Throwing(version: 3), AddRow(version: 4)])
+
+    XCTAssertThrowsError(try subject.migrateDatabase(), "throws an error when migrating")
+
+    XCTAssertEqual(try db.scalar(TestDB.table.count), 2, "rolls back the failed migrations")
+    XCTAssertEqual(subject.appliedVersions(), [2], "adds the successfule migration to the migrations table")
+  }
+
+  func test_migrateDatabase_withPendingMigrations_toVersion() throws {
+    createMigrationTable()
+    try CreateTable(version: 0).migrateDatabase(db)
+    try AddRow(version: 1).migrateDatabase(db)
+    subject = makeSubject(migrations: [AddRow(version: 2), FileMigration(url: testBundle.url(forResource: "3_add-row", withExtension: "sql")!)!, AddRow(version: 4)])
+
+    XCTAssertNoThrow(try subject.migrateDatabase(toVersion: 3), "successfully migrates database")
+
+    XCTAssertEqual(try db.scalar(TestDB.table.count), 3, "applies the migrations up to toVersion")
+    XCTAssertEqual(subject.appliedVersions(), [2, 3], "adds the migrations to the migrations table")
+  }
 }
 
 extension SQLiteMigrationManagerTests {
@@ -285,5 +323,42 @@ extension SQLiteMigrationManagerTests {
 
   private func makeSubject(migrations: [Migration]) -> SQLiteMigrationManager {
     return SQLiteMigrationManager(db: db, migrations: migrations)
+  }
+}
+
+struct TestDB {
+  static let table = Table("test_table")
+  static let column = SQLite.Expression<Int>("key")
+}
+
+struct TestMigration: Migration {
+  let version: Int64
+
+  func migrateDatabase(_ db: Connection) { }
+}
+
+struct CreateTable: Migration {
+  let version: Int64
+
+  func migrateDatabase(_ db: Connection) throws {
+    try db.run(TestDB.table.create { t in
+      t.column(TestDB.column)
+    })
+  }
+}
+
+struct AddRow: Migration {
+  let version: Int64
+
+  func migrateDatabase(_ db: Connection) throws {
+    let _ = try db.run(TestDB.table.insert(TestDB.column <- Int(version)))
+  }
+}
+
+struct Throwing: Migration {
+  let version: Int64
+
+  func migrateDatabase(_ db: Connection) throws {
+    throw Result.error(message: "Test error", code: 0, statement: nil)
   }
 }
