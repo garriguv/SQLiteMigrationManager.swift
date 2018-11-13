@@ -175,6 +175,53 @@ final class SQLiteMigrationManagerTests: XCTestCase {
 
     XCTAssertEqual(result, [2, 3, 5], "returns an array of applied migration versions")
   }
+
+  // MARK: pendingMigrations
+
+  func test_pendingMigrations_noTable_noMigrations() throws {
+    subject = try subject(migrations: [], bundleName: "Migrations_empty")
+
+    let result = subject.pendingMigrations()
+
+    XCTAssertTrue(result.isEmpty, "retuns an empty array of pending migrations")
+  }
+
+  func test_pendingMigrations_noTable_withMigrations() throws {
+    subject = try subject(migrations: [TestMigration(version: 20160117220050567), TestMigration(version: 0)], bundleName: "Migrations")
+
+    let result = subject.pendingMigrations()
+
+    XCTAssertEqual(result.map { m in m.version }, [0, 20160117220032473, 20160117220038856, 20160117220050560, 20160117220050567], "retuns an array of pending migrations")
+  }
+
+  func test_pendingMigrations_withTable_noMigrations() throws {
+    createMigrationTable()
+    subject = try subject(migrations: [], bundleName: "Migrations_empty")
+
+    let result = subject.pendingMigrations()
+
+    XCTAssertTrue(result.isEmpty, "retuns an empty array of pending migrations")
+  }
+
+  func test_pendingMigrations_withTable_withMigrations() throws {
+    createMigrationTable()
+    subject = try subject(migrations: [TestMigration(version: 20160117220050567), TestMigration(version: 0)], bundleName: "Migrations")
+
+    let result = subject.pendingMigrations()
+
+    XCTAssertEqual(result.map { m in m.version }, [0, 20160117220032473, 20160117220038856, 20160117220050560, 20160117220050567], "retuns an array of pending migrations")
+  }
+
+  func test_pendingMigrations_withTable_withMigrations_withAppliedMigrations() throws {
+    createMigrationTable()
+    subject = try subject(migrations: [TestMigration(version: 20160117220050567), TestMigration(version: 0)], bundleName: "Migrations")
+    insertMigration(version: 0)
+    insertMigration(version: 20160117220032473)
+
+    let result = subject.pendingMigrations()
+
+    XCTAssertEqual(result.map { m in m.version }, [20160117220038856, 20160117220050560, 20160117220050567], "retuns an array of pending migrations")
+  }
 }
 
 extension SQLiteMigrationManagerTests {
