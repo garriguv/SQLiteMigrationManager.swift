@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.4.0](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.4.0)
+
+* Swift 4.2 support.
+* Upgrage example app.
+
 ## [0.3.1](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.3.1)
 
 * Set `APPLICATION_EXTENSION_API_ONLY` to `YES`.
