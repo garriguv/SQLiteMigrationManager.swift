@@ -116,6 +116,15 @@ it, simply add the following line to your `Cartfile`:
 github "garriguv/SQLiteMigrationManager.swift"
 ```
 
+### Swift Package Manager
+
+SQLiteMigrationManager.swift is availabel through [Swift Package Manager](https://swift.org/package-manager/). 
+To install it, add the following dependency to your `Package.swift` file:
+
+```swift
+.package(url: "https://github.com/garriguv/SQLiteMigrationManager.swift.git", from: "0.4.0")
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/garriguv/SQLiteMigrationManager.swift/fork )
