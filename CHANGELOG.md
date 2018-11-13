@@ -4,6 +4,7 @@
 
 * Swift 4.2 support.
 * Upgrage example app.
+* SPM support.
 
 ## [0.3.1](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.3.1)
 
