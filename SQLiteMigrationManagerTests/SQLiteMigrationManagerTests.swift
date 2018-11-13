@@ -77,6 +77,33 @@ final class SQLiteMigrationManagerTests: XCTestCase {
     XCTAssertEqual(result, 5, "returns the latest migration")
   }
 
+  // MARK: originVersion
+
+  func test_originVersion_noTable() {
+    let result = subject.originVersion()
+
+    XCTAssertEqual(result, 0, "returns 0 when there is no migrations table")
+  }
+
+  func test_originVersion_withTable_empty() {
+    createMigrationTable()
+
+    let result = subject.originVersion()
+
+    XCTAssertEqual(result, 0, "returns 0 when there is an empty migrations table")
+  }
+
+  func test_originVersion_withTable_notEmpty() {
+    createMigrationTable()
+    insertMigration(version: 2)
+    insertMigration(version: 3)
+    insertMigration(version: 5)
+
+    let result = subject.originVersion()
+
+    XCTAssertEqual(result, 2, "returns the first migration")
+  }
+
 }
 
 extension SQLiteMigrationManagerTests {
