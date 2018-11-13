@@ -258,7 +258,8 @@ final class SQLiteMigrationManagerTests: XCTestCase {
     createMigrationTable()
     try CreateTable(version: 0).migrateDatabase(db)
     try AddRow(version: 1).migrateDatabase(db)
-    subject = makeSubject(migrations: [AddRow(version: 2), FileMigration(url: testBundle.url(forResource: "3_add-row", withExtension: "sql")!)!, AddRow(version: 4)])
+    let fileMigration = try makeFileMigration("3_add-row")
+    subject = makeSubject(migrations: [AddRow(version: 2), fileMigration, AddRow(version: 4)])
 
     XCTAssertNoThrow(try subject.migrateDatabase(), "successfully migrates database")
 
@@ -282,7 +283,8 @@ final class SQLiteMigrationManagerTests: XCTestCase {
     createMigrationTable()
     try CreateTable(version: 0).migrateDatabase(db)
     try AddRow(version: 1).migrateDatabase(db)
-    subject = makeSubject(migrations: [AddRow(version: 2), FileMigration(url: testBundle.url(forResource: "3_add-row", withExtension: "sql")!)!, AddRow(version: 4)])
+    let fileMigration = try makeFileMigration("3_add-row")
+    subject = makeSubject(migrations: [AddRow(version: 2), fileMigration, AddRow(version: 4)])
 
     XCTAssertNoThrow(try subject.migrateDatabase(toVersion: 3), "successfully migrates database")
 
@@ -311,6 +313,7 @@ extension SQLiteMigrationManagerTests {
 
   enum TestError: Error {
     case BundleNotFound(String)
+    case MigrationNotFound(String)
   }
 
   private func makeSubject(migrations: [Migration], bundleName: String, file: StaticString = #file, line: UInt = #line) throws -> SQLiteMigrationManager {
@@ -323,6 +326,14 @@ extension SQLiteMigrationManagerTests {
 
   private func makeSubject(migrations: [Migration]) -> SQLiteMigrationManager {
     return SQLiteMigrationManager(db: db, migrations: migrations)
+  }
+
+  private func makeFileMigration(_ fileName: String, file: StaticString = #file, line: UInt = #line) throws -> Migration {
+    guard let url = testBundle.url(forResource: fileName, withExtension: "sql"), let fileMigration = FileMigration(url: url) else {
+      XCTFail("migration not found: \(fileName)", file: file, line: line)
+      throw TestError.MigrationNotFound(fileName)
+    }
+    return fileMigration
   }
 }
 
