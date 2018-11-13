@@ -20,7 +20,7 @@ final class SQLiteMigrationManagerTests: XCTestCase {
     testBundle = Bundle(for: type(of: self))
   }
 
-  // MARK: hasMigrationsTable
+  // MARK: - hasMigrationsTable
 
   func test_hasMigrationsTable_noTable() {
     let result = subject.hasMigrationsTable()
@@ -36,7 +36,7 @@ final class SQLiteMigrationManagerTests: XCTestCase {
     XCTAssertTrue(result, "returns true when there is a migrations table")
   }
 
-  // MARK: createMigrationsTable
+  // MARK: - createMigrationsTable
 
   func test_createMigrationsTable_noTable() throws {
     try subject.createMigrationsTable()
@@ -50,7 +50,7 @@ final class SQLiteMigrationManagerTests: XCTestCase {
     XCTAssertNoThrow(try subject.createMigrationsTable(), "does not throw if the table already exists")
   }
 
-  // MARK: currentVersion
+  // MARK: - currentVersion
 
   func test_currentVersion_noMigrationsTable() {
     let result = subject.currentVersion()
@@ -77,7 +77,7 @@ final class SQLiteMigrationManagerTests: XCTestCase {
     XCTAssertEqual(result, 5, "returns the latest migration")
   }
 
-  // MARK: originVersion
+  // MARK: - originVersion
 
   func test_originVersion_noTable() {
     let result = subject.originVersion()
@@ -104,10 +104,10 @@ final class SQLiteMigrationManagerTests: XCTestCase {
     XCTAssertEqual(result, 2, "returns the first migration")
   }
 
-  // MARK: migrations
+  // MARK: - migrations
 
   func test_migrations_noMigrationsInBundle_withMigrations() throws {
-    subject = try subject(migrations: [TestMigration(version: 1), TestMigration(version: 0)], bundleName: "Migrations_empty")
+    subject = try makeSubject(migrations: [TestMigration(version: 1), TestMigration(version: 0)], bundleName: "Migrations_empty")
 
     let result = subject.migrations
 
@@ -116,7 +116,7 @@ final class SQLiteMigrationManagerTests: XCTestCase {
   }
 
   func test_migrations_noMigrationsInBundle_withoutMigrations() throws {
-    subject = try subject(migrations: [], bundleName: "Migrations_empty")
+    subject = try makeSubject(migrations: [], bundleName: "Migrations_empty")
 
     let result = subject.migrations
 
@@ -124,7 +124,7 @@ final class SQLiteMigrationManagerTests: XCTestCase {
   }
 
   func test_migrations_migrationsInBundle_withMigrations() throws {
-    subject = try subject(migrations: [TestMigration(version: 0), TestMigration(version: 20160117220050567)], bundleName: "Migrations")
+    subject = try makeSubject(migrations: [TestMigration(version: 0), TestMigration(version: 20160117220050567)], bundleName: "Migrations")
 
     let result = subject.migrations
 
@@ -133,7 +133,7 @@ final class SQLiteMigrationManagerTests: XCTestCase {
   }
 
   func test_migrations_migrationsInBundle_withoutMigrations() throws {
-    subject = try subject(migrations: [], bundleName: "Migrations")
+    subject = try makeSubject(migrations: [], bundleName: "Migrations")
 
     let result = subject.migrations
 
@@ -142,14 +142,14 @@ final class SQLiteMigrationManagerTests: XCTestCase {
   }
 
   func test_migrations_fileNames() throws {
-    subject = try subject(migrations: [], bundleName: "Migrations-names")
+    subject = try makeSubject(migrations: [], bundleName: "Migrations-names")
 
     let result = subject.migrations
 
     XCTAssertEqual(result.count, 4, "returns all migrations")
   }
 
-  // MARK: appliedVersions
+  // MARK: - appliedVersions
 
   func test_appliedVersions_noTable() {
     let result = subject.appliedVersions()
@@ -176,10 +176,10 @@ final class SQLiteMigrationManagerTests: XCTestCase {
     XCTAssertEqual(result, [2, 3, 5], "returns an array of applied migration versions")
   }
 
-  // MARK: pendingMigrations
+  // MARK: - pendingMigrations
 
   func test_pendingMigrations_noTable_noMigrations() throws {
-    subject = try subject(migrations: [], bundleName: "Migrations_empty")
+    subject = try makeSubject(migrations: [], bundleName: "Migrations_empty")
 
     let result = subject.pendingMigrations()
 
@@ -187,7 +187,7 @@ final class SQLiteMigrationManagerTests: XCTestCase {
   }
 
   func test_pendingMigrations_noTable_withMigrations() throws {
-    subject = try subject(migrations: [TestMigration(version: 20160117220050567), TestMigration(version: 0)], bundleName: "Migrations")
+    subject = try makeSubject(migrations: [TestMigration(version: 20160117220050567), TestMigration(version: 0)], bundleName: "Migrations")
 
     let result = subject.pendingMigrations()
 
@@ -196,7 +196,7 @@ final class SQLiteMigrationManagerTests: XCTestCase {
 
   func test_pendingMigrations_withTable_noMigrations() throws {
     createMigrationTable()
-    subject = try subject(migrations: [], bundleName: "Migrations_empty")
+    subject = try makeSubject(migrations: [], bundleName: "Migrations_empty")
 
     let result = subject.pendingMigrations()
 
@@ -205,7 +205,7 @@ final class SQLiteMigrationManagerTests: XCTestCase {
 
   func test_pendingMigrations_withTable_withMigrations() throws {
     createMigrationTable()
-    subject = try subject(migrations: [TestMigration(version: 20160117220050567), TestMigration(version: 0)], bundleName: "Migrations")
+    subject = try makeSubject(migrations: [TestMigration(version: 20160117220050567), TestMigration(version: 0)], bundleName: "Migrations")
 
     let result = subject.pendingMigrations()
 
@@ -214,7 +214,7 @@ final class SQLiteMigrationManagerTests: XCTestCase {
 
   func test_pendingMigrations_withTable_withMigrations_withAppliedMigrations() throws {
     createMigrationTable()
-    subject = try subject(migrations: [TestMigration(version: 20160117220050567), TestMigration(version: 0)], bundleName: "Migrations")
+    subject = try makeSubject(migrations: [TestMigration(version: 20160117220050567), TestMigration(version: 0)], bundleName: "Migrations")
     insertMigration(version: 0)
     insertMigration(version: 20160117220032473)
 
@@ -275,7 +275,7 @@ extension SQLiteMigrationManagerTests {
     case BundleNotFound(String)
   }
 
-  private func subject(migrations: [Migration], bundleName: String, file: StaticString = #file, line: UInt = #line) throws -> SQLiteMigrationManager {
+  private func makeSubject(migrations: [Migration], bundleName: String, file: StaticString = #file, line: UInt = #line) throws -> SQLiteMigrationManager {
     guard let bundleURL = testBundle.url(forResource: bundleName, withExtension: "bundle"), let bundle = Bundle(url: bundleURL) else {
       XCTFail("bundle not found: \(bundleName)", file: file, line: line)
       throw TestError.BundleNotFound(bundleName)
