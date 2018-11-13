@@ -123,6 +123,31 @@ final class SQLiteMigrationManagerTests: XCTestCase {
     XCTAssertTrue(result.isEmpty, "returns an empty array")
   }
 
+  func test_migrations_migrationsInBundle_withMigrations() throws {
+    subject = try subject(migrations: [TestMigration(version: 0), TestMigration(version: 20160117220050567)], bundleName: "Migrations")
+
+    let result = subject.migrations
+
+    XCTAssertEqual(result.count, 5, "returns an array of migrations")
+    XCTAssertEqual(result.map { m in m.version }, [0, 20160117220032473, 20160117220038856, 20160117220050560, 20160117220050567], "orders the migrations by version ascending")
+  }
+
+  func test_migrations_migrationsInBundle_withoutMigrations() throws {
+    subject = try subject(migrations: [], bundleName: "Migrations")
+
+    let result = subject.migrations
+
+    XCTAssertEqual(result.count, 3, "returns an array of migrations")
+    XCTAssertEqual(result.map { m in m.version }, [20160117220032473, 20160117220038856, 20160117220050560], "orders the migrations by version ascending")
+  }
+
+  func test_migrations_fileNames() throws {
+    subject = try subject(migrations: [], bundleName: "Migrations-names")
+
+    let result = subject.migrations
+
+    XCTAssertEqual(result.count, 4, "returns all migrations")
+  }
 }
 
 extension SQLiteMigrationManagerTests {

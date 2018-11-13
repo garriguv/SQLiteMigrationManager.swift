@@ -56,57 +56,6 @@ class SQLiteMigrationManagerSpec: QuickSpec {
       testBundle = Bundle(for: type(of: self))
     }
 
-    describe("migrations()") {
-      context("when there are migrations in the bundle") {
-        var bundleURL: URL!
-
-        beforeEach {
-          bundleURL = testBundle.url(forResource: "Migrations", withExtension: "bundle")!
-        }
-
-        context("when migrations are supplied") {
-          beforeEach {
-            let migrations: [Migration] = [ TestMigration(version: 0), TestMigration(version: 20160117220050567) ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: Bundle(url: bundleURL)!)
-          }
-
-          it("returns an array of migrations") {
-            expect(subject.migrations).to(haveCount(5))
-          }
-
-          it("returns an ordered array of migrations") {
-            expect(subject.migrations[0].version).to(equal(0))
-            expect(subject.migrations[4].version).to(equal(20160117220050567))
-          }
-        }
-
-        context("when migrations are not supplied") {
-          beforeEach {
-            subject = SQLiteMigrationManager(db: db, migrations: [], bundle: Bundle(url: bundleURL)!)
-          }
-
-          it("returns an array of migrations") {
-            expect(subject.migrations).to(haveCount(3))
-          }
-
-          it("returns an ordered array of migrations") {
-            expect(subject.migrations[0].version).to(equal(20160117220032473))
-            expect(subject.migrations[2].version).to(equal(20160117220050560))
-          }
-        }
-      }
-
-      describe("handling migration filenames") {
-        beforeEach {
-          subject = SQLiteMigrationManager(db: db, bundle: Bundle(url: testBundle.url(forResource: "Migrations-names", withExtension: "bundle")!)!)
-        }
-
-        it("returns an array of migrations") {
-          expect(subject.migrations).to(haveCount(4))
-        }
-      }
-    }
-
     describe("appliedVersions()") {
       context("when there is no migration table") {
         it("returns an empty array") {
