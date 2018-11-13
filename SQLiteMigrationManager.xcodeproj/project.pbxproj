@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9FD5BAB7356B0F99D4ABADA6 /* SQLiteMigrationManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD5B59A9E0E9497A3FC4E2D /* SQLiteMigrationManagerSpec.swift */; };
 		9FD5BFCFC94877B8D96F1073 /* SQLiteMigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD5B054E651DC4BD08A8C8E /* SQLiteMigrationManager.swift */; };
+		EBA6A620219B0E680073DE4F /* SQLiteMigrationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6A61F219B0E680073DE4F /* SQLiteMigrationManagerTests.swift */; };
 		EBD6C6801C4C3ACC004270C5 /* Migrations_empty.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C67E1C4C3ACC004270C5 /* Migrations_empty.bundle */; };
 		EBD6C6811C4C3ACC004270C5 /* Migrations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C67F1C4C3ACC004270C5 /* Migrations.bundle */; };
 		EBD6C6831C4E5059004270C5 /* 3_add-row.sql in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C6821C4E5059004270C5 /* 3_add-row.sql */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		9FD5B054E651DC4BD08A8C8E /* SQLiteMigrationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteMigrationManager.swift; sourceTree = "<group>"; };
 		9FD5B59A9E0E9497A3FC4E2D /* SQLiteMigrationManagerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteMigrationManagerSpec.swift; sourceTree = "<group>"; };
+		EBA6A61F219B0E680073DE4F /* SQLiteMigrationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteMigrationManagerTests.swift; sourceTree = "<group>"; };
 		EBD6C67E1C4C3ACC004270C5 /* Migrations_empty.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Migrations_empty.bundle; sourceTree = "<group>"; };
 		EBD6C67F1C4C3ACC004270C5 /* Migrations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Migrations.bundle; sourceTree = "<group>"; };
 		EBD6C6821C4E5059004270C5 /* 3_add-row.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3_add-row.sql"; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				EBE813F51C4BA00200EE04E8 /* Info.plist */,
 				9FD5B59A9E0E9497A3FC4E2D /* SQLiteMigrationManagerSpec.swift */,
 				9FD5BB58743A46516BAD09C9 /* resources */,
+				EBA6A61F219B0E680073DE4F /* SQLiteMigrationManagerTests.swift */,
 			);
 			path = SQLiteMigrationManagerTests;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBA6A620219B0E680073DE4F /* SQLiteMigrationManagerTests.swift in Sources */,
 				9FD5BAB7356B0F99D4ABADA6 /* SQLiteMigrationManagerSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
