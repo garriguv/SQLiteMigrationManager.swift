@@ -101,7 +101,7 @@ print("needsMigration()     \(manager.needsMigration())")
 ### CocoaPods
 
 SQLiteMigrationManager.swift is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your `Podfile`:
+it, add the following line to your `Podfile`:
 
 ```ruby
 pod "SQLiteMigrationManager.swift"
@@ -110,10 +110,19 @@ pod "SQLiteMigrationManager.swift"
 ### Carthage
 
 SQLiteMigrationManager.swift is available through [Carthage](https://github.com/Carthage/Carthage). To install
-it, simply add the following line to your `Cartfile`:
+it, add the following line to your `Cartfile`:
 
 ```ruby
 github "garriguv/SQLiteMigrationManager.swift"
+```
+
+### Swift Package Manager
+
+SQLiteMigrationManager.swift is availabel through [Swift Package Manager](https://swift.org/package-manager/). 
+To install it, add the following dependency to your `Package.swift` file:
+
+```swift
+.package(url: "https://github.com/garriguv/SQLiteMigrationManager.swift.git", from: "0.4.0")
 ```
 
 ## Contributing
