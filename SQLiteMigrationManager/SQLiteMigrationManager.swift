@@ -180,7 +180,7 @@ public struct SQLiteMigrationManager {
 extension Bundle {
   fileprivate func migrations() -> [Migration] {
     if let urls = urls(forResourcesWithExtension: "sql", subdirectory: nil) {
-      return urls.flatMap { FileMigration(url: $0) }
+      return urls.compactMap { FileMigration(url: $0) }
     } else {
       return []
     }

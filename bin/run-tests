@@ -6,8 +6,8 @@ main() {
   xcodebuild \
     -workspace SQLiteMigrationManager.xcworkspace \
     -scheme SQLiteMigrationManager\
-    -sdk iphonesimulator11.1\
-    -destination "platform=iOS Simulator,name=iPhone X,OS=11.1"\
+    -sdk iphonesimulator12.1\
+    -destination "platform=iOS Simulator,name=iPhone X,OS=12.1"\
     test
 }
 main "$@"
