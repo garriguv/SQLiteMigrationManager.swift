@@ -7,15 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9FD5BAB7356B0F99D4ABADA6 /* SQLiteMigrationManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD5B59A9E0E9497A3FC4E2D /* SQLiteMigrationManagerSpec.swift */; };
 		9FD5BFCFC94877B8D96F1073 /* SQLiteMigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD5B054E651DC4BD08A8C8E /* SQLiteMigrationManager.swift */; };
+		EBA6A620219B0E680073DE4F /* SQLiteMigrationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6A61F219B0E680073DE4F /* SQLiteMigrationManagerTests.swift */; };
 		EBD6C6801C4C3ACC004270C5 /* Migrations_empty.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C67E1C4C3ACC004270C5 /* Migrations_empty.bundle */; };
 		EBD6C6811C4C3ACC004270C5 /* Migrations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C67F1C4C3ACC004270C5 /* Migrations.bundle */; };
 		EBD6C6831C4E5059004270C5 /* 3_add-row.sql in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C6821C4E5059004270C5 /* 3_add-row.sql */; };
 		EBD6C6A51C4E686C004270C5 /* Migrations-names.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C6A41C4E686C004270C5 /* Migrations-names.bundle */; };
 		EBD762D21C4BA3E800951FE6 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD762D11C4BA3E800951FE6 /* SQLite.framework */; };
-		EBD762D51C4BA3FA00951FE6 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD762D31C4BA3FA00951FE6 /* Nimble.framework */; };
-		EBD762D61C4BA3FA00951FE6 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD762D41C4BA3FA00951FE6 /* Quick.framework */; };
 		EBE813EF1C4BA00200EE04E8 /* SQLiteMigrationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,14 +29,12 @@
 
 /* Begin PBXFileReference section */
 		9FD5B054E651DC4BD08A8C8E /* SQLiteMigrationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteMigrationManager.swift; sourceTree = "<group>"; };
-		9FD5B59A9E0E9497A3FC4E2D /* SQLiteMigrationManagerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteMigrationManagerSpec.swift; sourceTree = "<group>"; };
+		EBA6A61F219B0E680073DE4F /* SQLiteMigrationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteMigrationManagerTests.swift; sourceTree = "<group>"; };
 		EBD6C67E1C4C3ACC004270C5 /* Migrations_empty.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Migrations_empty.bundle; sourceTree = "<group>"; };
 		EBD6C67F1C4C3ACC004270C5 /* Migrations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Migrations.bundle; sourceTree = "<group>"; };
 		EBD6C6821C4E5059004270C5 /* 3_add-row.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3_add-row.sql"; sourceTree = "<group>"; };
 		EBD6C6A41C4E686C004270C5 /* Migrations-names.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Migrations-names.bundle"; sourceTree = "<group>"; };
 		EBD762D11C4BA3E800951FE6 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = "Carthage/Checkouts/SQLite.swift/build/Debug-iphoneos/SQLite.framework"; sourceTree = "<group>"; };
-		EBD762D31C4BA3FA00951FE6 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "Carthage/Checkouts/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
-		EBD762D41C4BA3FA00951FE6 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Carthage/Checkouts/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
 		EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLiteMigrationManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE813E91C4BA00200EE04E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBE813EE1C4BA00200EE04E8 /* SQLiteMigrationManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SQLiteMigrationManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,8 +54,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBD762D51C4BA3FA00951FE6 /* Nimble.framework in Frameworks */,
-				EBD762D61C4BA3FA00951FE6 /* Quick.framework in Frameworks */,
 				EBE813EF1C4BA00200EE04E8 /* SQLiteMigrationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,8 +75,6 @@
 		EBE813DA1C4BA00200EE04E8 = {
 			isa = PBXGroup;
 			children = (
-				EBD762D31C4BA3FA00951FE6 /* Nimble.framework */,
-				EBD762D41C4BA3FA00951FE6 /* Quick.framework */,
 				EBD762D11C4BA3E800951FE6 /* SQLite.framework */,
 				EBE813E61C4BA00200EE04E8 /* SQLiteMigrationManager */,
 				EBE813F21C4BA00200EE04E8 /* SQLiteMigrationManagerTests */,
@@ -112,8 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				EBE813F51C4BA00200EE04E8 /* Info.plist */,
-				9FD5B59A9E0E9497A3FC4E2D /* SQLiteMigrationManagerSpec.swift */,
 				9FD5BB58743A46516BAD09C9 /* resources */,
+				EBA6A61F219B0E680073DE4F /* SQLiteMigrationManagerTests.swift */,
 			);
 			path = SQLiteMigrationManagerTests;
 			sourceTree = "<group>";
@@ -179,11 +171,11 @@
 				TargetAttributes = {
 					EBE813E31C4BA00200EE04E8 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1010;
 					};
 					EBE813ED1C4BA00200EE04E8 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -239,7 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FD5BAB7356B0F99D4ABADA6 /* SQLiteMigrationManagerSpec.swift in Sources */,
+				EBA6A620219B0E680073DE4F /* SQLiteMigrationManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,7 +374,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.garriguv.SQLiteMigrationManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -404,7 +396,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.garriguv.SQLiteMigrationManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -416,7 +408,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.garriguv.SQLiteMigrationManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -428,7 +420,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.garriguv.SQLiteMigrationManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
