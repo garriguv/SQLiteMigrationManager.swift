@@ -104,6 +104,25 @@ final class SQLiteMigrationManagerTests: XCTestCase {
     XCTAssertEqual(result, 2, "returns the first migration")
   }
 
+  // MARK: migrations
+
+  func test_migrations_noMigrationsInBundle_withMigrations() throws {
+    subject = try subject(migrations: [TestMigration(version: 1), TestMigration(version: 0)], bundleName: "Migrations_empty")
+
+    let result = subject.migrations
+
+    XCTAssertEqual(result.count, 2, "returns an array of migrations")
+    XCTAssertEqual(result.map { m in m.version }, [0, 1], "orders the migrations by version ascending")
+  }
+
+  func test_migrations_noMigrationsInBundle_withoutMigrations() throws {
+    subject = try subject(migrations: [], bundleName: "Migrations_empty")
+
+    let result = subject.migrations
+
+    XCTAssertTrue(result.isEmpty, "returns an empty array")
+  }
+
 }
 
 extension SQLiteMigrationManagerTests {
@@ -122,5 +141,17 @@ extension SQLiteMigrationManagerTests {
     } catch {
       XCTFail("insertMigration: \(error)", file: file, line: line)
     }
+  }
+
+  enum TestError: Error {
+    case BundleNotFound(String)
+  }
+
+  private func subject(migrations: [Migration], bundleName: String, file: StaticString = #file, line: UInt = #line) throws -> SQLiteMigrationManager {
+    guard let bundleURL = testBundle.url(forResource: bundleName, withExtension: "bundle"), let bundle = Bundle(url: bundleURL) else {
+      XCTFail("bundle not found: \(bundleName)", file: file, line: line)
+      throw TestError.BundleNotFound(bundleName)
+    }
+    return SQLiteMigrationManager(db: db, migrations: migrations, bundle: bundle)
   }
 }

@@ -57,40 +57,6 @@ class SQLiteMigrationManagerSpec: QuickSpec {
     }
 
     describe("migrations()") {
-      context("when there are no migrations in the bundle") {
-        var bundleURL: URL!
-
-        beforeEach {
-          bundleURL = testBundle.url(forResource: "Migrations_empty", withExtension: "bundle")!
-        }
-
-        context("when migrations are supplied") {
-          beforeEach {
-            let migrations: [Migration] = [ TestMigration(version: 1), TestMigration(version: 0) ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations, bundle: Bundle(url: bundleURL)!)
-          }
-
-          it("returns an array of migrations") {
-            expect(subject.migrations).to(haveCount(2))
-          }
-
-          it("returns an ordered array of migrations") {
-            expect(subject.migrations[0].version).to(equal(0))
-            expect(subject.migrations[1].version).to(equal(1))
-          }
-        }
-
-        context("when migrations are not supplied") {
-          beforeEach {
-            subject = SQLiteMigrationManager(db: db, migrations: [], bundle: Bundle(url: bundleURL)!)
-          }
-
-          it("returns an empty array") {
-            expect(subject.migrations).to(beEmpty())
-          }
-        }
-      }
-
       context("when there are migrations in the bundle") {
         var bundleURL: URL!
 
