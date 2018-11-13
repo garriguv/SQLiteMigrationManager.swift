@@ -222,6 +222,35 @@ final class SQLiteMigrationManagerTests: XCTestCase {
 
     XCTAssertEqual(result.map { m in m.version }, [20160117220038856, 20160117220050560, 20160117220050567], "retuns an array of pending migrations")
   }
+
+  // MARK: - needsMigration
+
+  func test_needsMigration_noTable() {
+    let result = subject.needsMigration()
+
+    XCTAssertFalse(result, "returns false when there is no migrations table")
+  }
+
+  func test_needsMigration_withTable_withPendingMigrations() {
+    createMigrationTable()
+    insertMigration(version: 0)
+    subject = makeSubject(migrations: [TestMigration(version: 0), TestMigration(version: 1)])
+
+    let result = subject.needsMigration()
+
+    XCTAssertTrue(result, "returns true when there are pending migrations")
+  }
+
+  func test_needsMigration_withTable_noPendingMigrations() {
+    createMigrationTable()
+    insertMigration(version: 0)
+    insertMigration(version: 1)
+    subject = makeSubject(migrations: [TestMigration(version: 0), TestMigration(version: 1)])
+
+    let result = subject.needsMigration()
+
+    XCTAssertFalse(result, "returns false when there are no pending migrations")
+  }
 }
 
 extension SQLiteMigrationManagerTests {
@@ -252,5 +281,9 @@ extension SQLiteMigrationManagerTests {
       throw TestError.BundleNotFound(bundleName)
     }
     return SQLiteMigrationManager(db: db, migrations: migrations, bundle: bundle)
+  }
+
+  private func makeSubject(migrations: [Migration]) -> SQLiteMigrationManager {
+    return SQLiteMigrationManager(db: db, migrations: migrations)
   }
 }

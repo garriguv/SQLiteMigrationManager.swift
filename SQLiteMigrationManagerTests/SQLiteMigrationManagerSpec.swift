@@ -56,47 +56,6 @@ class SQLiteMigrationManagerSpec: QuickSpec {
       testBundle = Bundle(for: type(of: self))
     }
 
-    describe("needsMigration()") {
-      context("when there is a migration table") {
-        beforeEach {
-          createMigrationTable(db)
-        }
-
-        context("when there are pending migrations") {
-          beforeEach {
-            insertMigration(db, version: 0)
-
-            let migrations: [Migration] = [ TestMigration(version: 0), TestMigration(version: 1) ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations)
-          }
-
-          it("returns true") {
-            expect(subject.needsMigration()).to(beTrue())
-          }
-        }
-
-        context("when there are no pending migrations") {
-          beforeEach {
-            insertMigration(db, version: 0)
-            insertMigration(db, version: 1)
-
-            let migrations: [Migration] = [ TestMigration(version: 0), TestMigration(version: 1) ]
-            subject = SQLiteMigrationManager(db: db, migrations: migrations)
-          }
-
-          it("returns false") {
-            expect(subject.needsMigration()).to(beFalse())
-          }
-        }
-      }
-
-      context("when there is NO migration table") {
-        it("returns false") {
-          expect(subject.needsMigration()).to(beFalse())
-        }
-      }
-    }
-
     describe("migrateDatabase(toVersion:)") {
       beforeEach {
         createMigrationTable(db)
