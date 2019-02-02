@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CFE35EC521DE71980004E4E4"
-               BuildableName = "SQLiteMigrationManagerMacOs.framework"
-               BlueprintName = "SQLiteMigrationManagerMacOs"
+               BuildableName = "SQLiteMigrationManager_macOS.framework"
+               BlueprintName = "SQLiteMigrationManager macOS"
                ReferencedContainer = "container:SQLiteMigrationManager.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,8 +46,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CFE35EC521DE71980004E4E4"
-            BuildableName = "SQLiteMigrationManagerMacOs.framework"
-            BlueprintName = "SQLiteMigrationManagerMacOs"
+            BuildableName = "SQLiteMigrationManager_macOS.framework"
+            BlueprintName = "SQLiteMigrationManager macOS"
             ReferencedContainer = "container:SQLiteMigrationManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,8 +64,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CFE35EC521DE71980004E4E4"
-            BuildableName = "SQLiteMigrationManagerMacOs.framework"
-            BlueprintName = "SQLiteMigrationManagerMacOs"
+            BuildableName = "SQLiteMigrationManager_macOS.framework"
+            BlueprintName = "SQLiteMigrationManager macOS"
             ReferencedContainer = "container:SQLiteMigrationManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

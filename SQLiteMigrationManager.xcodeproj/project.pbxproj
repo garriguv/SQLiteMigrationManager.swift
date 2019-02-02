@@ -17,7 +17,7 @@
 		EBD6C6831C4E5059004270C5 /* 3_add-row.sql in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C6821C4E5059004270C5 /* 3_add-row.sql */; };
 		EBD6C6A51C4E686C004270C5 /* Migrations-names.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBD6C6A41C4E686C004270C5 /* Migrations-names.bundle */; };
 		EBD762D21C4BA3E800951FE6 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD762D11C4BA3E800951FE6 /* SQLite.framework */; };
-		EBE813EF1C4BA00200EE04E8 /* SQLiteMigrationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager.framework */; };
+		EBE813EF1C4BA00200EE04E8 /* SQLiteMigrationManager iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +33,7 @@
 /* Begin PBXFileReference section */
 		9FD5B054E651DC4BD08A8C8E /* SQLiteMigrationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteMigrationManager.swift; sourceTree = "<group>"; };
 		CF1CEF2721DE7797009C3403 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/Mac/SQLite.framework; sourceTree = "<group>"; };
-		CFE35EC621DE71980004E4E4 /* SQLiteMigrationManagerMacOs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLiteMigrationManagerMacOs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFE35EC621DE71980004E4E4 /* SQLiteMigrationManager_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLiteMigrationManager_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFE35EC821DE71980004E4E4 /* SQLiteMigrationManagerMacOs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQLiteMigrationManagerMacOs.h; sourceTree = "<group>"; };
 		CFE35EC921DE71980004E4E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFE35ECF21DE72090004E4E4 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,7 +43,7 @@
 		EBD6C6821C4E5059004270C5 /* 3_add-row.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3_add-row.sql"; sourceTree = "<group>"; };
 		EBD6C6A41C4E686C004270C5 /* Migrations-names.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Migrations-names.bundle"; sourceTree = "<group>"; };
 		EBD762D11C4BA3E800951FE6 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = "Carthage/Checkouts/SQLite.swift/build/Debug-iphoneos/SQLite.framework"; sourceTree = "<group>"; };
-		EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLiteMigrationManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "SQLiteMigrationManager iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE813E91C4BA00200EE04E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBE813EE1C4BA00200EE04E8 /* SQLiteMigrationManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SQLiteMigrationManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE813F51C4BA00200EE04E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBE813EF1C4BA00200EE04E8 /* SQLiteMigrationManager.framework in Frameworks */,
+				EBE813EF1C4BA00200EE04E8 /* SQLiteMigrationManager iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,9 +121,9 @@
 		EBE813E51C4BA00200EE04E8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager.framework */,
+				EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager iOS.framework */,
 				EBE813EE1C4BA00200EE04E8 /* SQLiteMigrationManagerTests.xctest */,
-				CFE35EC621DE71980004E4E4 /* SQLiteMigrationManagerMacOs.framework */,
+				CFE35EC621DE71980004E4E4 /* SQLiteMigrationManager_macOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,9 +168,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		CFE35EC521DE71980004E4E4 /* SQLiteMigrationManagerMacOs */ = {
+		CFE35EC521DE71980004E4E4 /* SQLiteMigrationManager macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CFE35ECD21DE71980004E4E4 /* Build configuration list for PBXNativeTarget "SQLiteMigrationManagerMacOs" */;
+			buildConfigurationList = CFE35ECD21DE71980004E4E4 /* Build configuration list for PBXNativeTarget "SQLiteMigrationManager macOS" */;
 			buildPhases = (
 				CFE35EC121DE71980004E4E4 /* Headers */,
 				CFE35EC221DE71980004E4E4 /* Sources */,
@@ -181,14 +181,14 @@
 			);
 			dependencies = (
 			);
-			name = SQLiteMigrationManagerMacOs;
+			name = "SQLiteMigrationManager macOS";
 			productName = SQLiteMigrationManagerMacOs;
-			productReference = CFE35EC621DE71980004E4E4 /* SQLiteMigrationManagerMacOs.framework */;
+			productReference = CFE35EC621DE71980004E4E4 /* SQLiteMigrationManager_macOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		EBE813E31C4BA00200EE04E8 /* SQLiteMigrationManager */ = {
+		EBE813E31C4BA00200EE04E8 /* SQLiteMigrationManager iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EBE813F81C4BA00200EE04E8 /* Build configuration list for PBXNativeTarget "SQLiteMigrationManager" */;
+			buildConfigurationList = EBE813F81C4BA00200EE04E8 /* Build configuration list for PBXNativeTarget "SQLiteMigrationManager iOS" */;
 			buildPhases = (
 				EBE813DF1C4BA00200EE04E8 /* Sources */,
 				EBE813E01C4BA00200EE04E8 /* Frameworks */,
@@ -199,9 +199,9 @@
 			);
 			dependencies = (
 			);
-			name = SQLiteMigrationManager;
+			name = "SQLiteMigrationManager iOS";
 			productName = SQLiteMigrationManager;
-			productReference = EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager.framework */;
+			productReference = EBE813E41C4BA00200EE04E8 /* SQLiteMigrationManager iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EBE813ED1C4BA00200EE04E8 /* SQLiteMigrationManagerTests */ = {
@@ -258,9 +258,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EBE813E31C4BA00200EE04E8 /* SQLiteMigrationManager */,
+				EBE813E31C4BA00200EE04E8 /* SQLiteMigrationManager iOS */,
+				CFE35EC521DE71980004E4E4 /* SQLiteMigrationManager macOS */,
 				EBE813ED1C4BA00200EE04E8 /* SQLiteMigrationManagerTests */,
-				CFE35EC521DE71980004E4E4 /* SQLiteMigrationManagerMacOs */,
 			);
 		};
 /* End PBXProject section */
@@ -323,7 +323,7 @@
 /* Begin PBXTargetDependency section */
 		EBE813F11C4BA00200EE04E8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EBE813E31C4BA00200EE04E8 /* SQLiteMigrationManager */;
+			target = EBE813E31C4BA00200EE04E8 /* SQLiteMigrationManager iOS */;
 			targetProxy = EBE813F01C4BA00200EE04E8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -588,7 +588,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CFE35ECD21DE71980004E4E4 /* Build configuration list for PBXNativeTarget "SQLiteMigrationManagerMacOs" */ = {
+		CFE35ECD21DE71980004E4E4 /* Build configuration list for PBXNativeTarget "SQLiteMigrationManager macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CFE35ECB21DE71980004E4E4 /* Debug */,
@@ -606,7 +606,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EBE813F81C4BA00200EE04E8 /* Build configuration list for PBXNativeTarget "SQLiteMigrationManager" */ = {
+		EBE813F81C4BA00200EE04E8 /* Build configuration list for PBXNativeTarget "SQLiteMigrationManager iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EBE813F91C4BA00200EE04E8 /* Debug */,
