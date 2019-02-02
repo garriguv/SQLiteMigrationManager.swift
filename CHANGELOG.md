@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.5.0](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.5.0)
+
+* Add macOS support (@nickgzzjr & @misteral).
+* Reorganize project to support additional platforms in the future.
+
 ## [0.4.0](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.4.0)
 
 * Swift 4.2 support.
