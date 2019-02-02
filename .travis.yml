@@ -1,5 +1,8 @@
 language: objective-c
 osx_image: xcode10.1
+cache:
+  directories:
+    - Carthage
 env:
   global:
   - FRAMEWORK_NAME=SQLiteMigrationManager
@@ -11,7 +14,7 @@ before_script:
 script:
   - travis_retry ./bin/run-tests
 before_deploy:
-  - carthage build --platform iOS --no-skip-current
+  - carthage build --platform iOS,macOS --no-skip-current
   - carthage archive $FRAMEWORK_NAME
 deploy:
   provider: releases

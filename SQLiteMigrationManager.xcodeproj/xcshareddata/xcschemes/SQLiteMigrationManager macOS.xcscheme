@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CFE35EC521DE71980004E4E4"
-               BuildableName = "SQLiteMigrationManagerMacOs.framework"
-               BlueprintName = "SQLiteMigrationManagerMacOs"
+               BuildableName = "SQLiteMigrationManager.framework"
+               BlueprintName = "SQLiteMigrationManager macOS"
                ReferencedContainer = "container:SQLiteMigrationManager.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,7 +28,28 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EBB203692205CCF9001B59FA"
+               BuildableName = "SQLiteMigrationManagerTests macOS.xctest"
+               BlueprintName = "SQLiteMigrationManagerTests macOS"
+               ReferencedContainer = "container:SQLiteMigrationManager.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "CFE35EC521DE71980004E4E4"
+            BuildableName = "SQLiteMigrationManager.framework"
+            BlueprintName = "SQLiteMigrationManager macOS"
+            ReferencedContainer = "container:SQLiteMigrationManager.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -46,8 +67,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CFE35EC521DE71980004E4E4"
-            BuildableName = "SQLiteMigrationManagerMacOs.framework"
-            BlueprintName = "SQLiteMigrationManagerMacOs"
+            BuildableName = "SQLiteMigrationManager.framework"
+            BlueprintName = "SQLiteMigrationManager macOS"
             ReferencedContainer = "container:SQLiteMigrationManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,8 +85,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CFE35EC521DE71980004E4E4"
-            BuildableName = "SQLiteMigrationManagerMacOs.framework"
-            BlueprintName = "SQLiteMigrationManagerMacOs"
+            BuildableName = "SQLiteMigrationManager.framework"
+            BlueprintName = "SQLiteMigrationManager macOS"
             ReferencedContainer = "container:SQLiteMigrationManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
