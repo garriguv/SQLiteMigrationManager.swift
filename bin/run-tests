@@ -12,7 +12,7 @@ main() {
   xcodebuild \
     -workspace SQLiteMigrationManager.xcworkspace \
     -scheme 'SQLiteMigrationManager macOS' \
-    -sdk macosx10.10 \
+    -sdk macosx10.14 \
     -destination "arch=x86_64" \
     test
   swift build
