@@ -1,8 +1,5 @@
 language: objective-c
 osx_image: xcode10.1
-cache:
-  directories:
-    - Carthage
 env:
   global:
   - FRAMEWORK_NAME=SQLiteMigrationManager
