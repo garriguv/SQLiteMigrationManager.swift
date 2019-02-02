@@ -13,11 +13,11 @@ let package = Package(
         .target(
             name: "SQLiteMigrationManager",
             dependencies: ["SQLite"],
-            path: "SQLiteMigrationManager",
+            path: "Sources",
             sources: ["SQLiteMigrationManager.swift"]),
         .testTarget(
             name: "SQLiteMigrationManagerTests",
             dependencies: ["SQLiteMigrationManager"],
-            path: "SQLiteMigrationManagerTests",
+            path: "Tests",
             sources: ["SQLiteMigrationManagerTests.swift"])
     ])
