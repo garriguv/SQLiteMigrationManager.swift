@@ -5,13 +5,13 @@ set -euo pipefail
 main() {
   xcodebuild \
     -workspace SQLiteMigrationManager.xcworkspace \
-    -scheme 'SQLiteMigrationManager iOS' \
+    -scheme "SQLiteMigrationManager iOS" \
     -sdk iphonesimulator12.1 \
     -destination "platform=iOS Simulator,name=iPhone X,OS=12.1"\
     test
   xcodebuild \
     -workspace SQLiteMigrationManager.xcworkspace \
-    -scheme 'SQLiteMigrationManager macOS' \
+    -scheme "SQLiteMigrationManager macOS" \
     -sdk macosx10.14 \
     -destination "arch=x86_64" \
     test
