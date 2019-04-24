@@ -309,11 +309,11 @@
 					};
 					EBE813E31C4BA00200EE04E8 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 					EBE813ED1C4BA00200EE04E8 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -687,7 +687,7 @@
 				PRODUCT_MODULE_NAME = SQLiteMigrationManager;
 				PRODUCT_NAME = SQLiteMigrationManager;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -710,7 +710,7 @@
 				PRODUCT_MODULE_NAME = SQLiteMigrationManager;
 				PRODUCT_NAME = SQLiteMigrationManager;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -722,7 +722,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.garriguv.SQLiteMigrationManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -734,7 +734,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.garriguv.SQLiteMigrationManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
