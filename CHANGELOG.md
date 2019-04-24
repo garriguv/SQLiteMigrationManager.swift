@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.6.0](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.6.0)
+
+* Update SQLite.swift to `0.11.6`
+* Compatible with Xcode `10.2`.
+
 ## [0.5.0](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.5.0)
 
 * Add macOS support (@nickgzzjr & @misteral).
