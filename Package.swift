@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.0
 import PackageDescription
 
 let package = Package(
@@ -7,7 +7,7 @@ let package = Package(
         .library(name: "SQLiteMigrationManager", targets: ["SQLiteMigrationManager"])
     ],
     dependencies: [
-        .package(url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.11.5")
+        .package(url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.12.0")
     ],
     targets: [
         .target(
