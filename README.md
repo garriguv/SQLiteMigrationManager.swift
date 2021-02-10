@@ -63,7 +63,7 @@ import SQLite
 struct SwiftMigration: Migration {
   var version: Int64 = 2016_01_19_13_12_06
 
-  func migrateDatabase(db: Connection) throws {
+  func migrateDatabase(_ db: Connection) throws {
     // perform the migration here
   }
 }
