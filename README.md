@@ -1,7 +1,5 @@
 # SQLiteMigrationManager.swift
-
-[![CI Status](http://img.shields.io/travis/garriguv/SQLiteMigrationManager.swift.svg?style=flat)](https://travis-ci.org/garriguv/SQLiteMigrationManager.swift)
-[![Version](https://img.shields.io/cocoapods/v/SQLiteMigrationManager.swift.svg?style=flat)](http://cocoapods.org/pods/SQLiteMigrationManager.swift)
+[![Build](https://github.com/garriguv/SQLiteMigrationManager.swift/actions/workflows/build.yml/badge.svg)](https://github.com/garriguv/SQLiteMigrationManager.swift/actions/workflows/build.yml) [![Version](https://img.shields.io/cocoapods/v/SQLiteMigrationManager.swift.svg?style=flat)](http://cocoapods.org/pods/SQLiteMigrationManager.swift)
 [![License](https://img.shields.io/cocoapods/l/SQLiteMigrationManager.swift.svg?style=flat)](http://cocoapods.org/pods/SQLiteMigrationManager.swift)
 [![Platform](https://img.shields.io/cocoapods/p/SQLiteMigrationManager.swift.svg?style=flat)](http://cocoapods.org/pods/SQLiteMigrationManager.swift)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
