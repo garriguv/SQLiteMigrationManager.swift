@@ -1,4 +1,4 @@
-d# SQLiteMigrationManager.swift
+# SQLiteMigrationManager.swift
 [![Build](https://github.com/garriguv/SQLiteMigrationManager.swift/actions/workflows/build.yml/badge.svg)](https://github.com/garriguv/SQLiteMigrationManager.swift/actions/workflows/build.yml) [![Version](https://img.shields.io/cocoapods/v/SQLiteMigrationManager.swift.svg?style=flat)](http://cocoapods.org/pods/SQLiteMigrationManager.swift)
 [![License](https://img.shields.io/cocoapods/l/SQLiteMigrationManager.swift.svg?style=flat)](http://cocoapods.org/pods/SQLiteMigrationManager.swift)
 [![Platform](https://img.shields.io/cocoapods/p/SQLiteMigrationManager.swift.svg?style=flat)](http://cocoapods.org/pods/SQLiteMigrationManager.swift)
