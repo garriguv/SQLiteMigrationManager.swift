@@ -19,6 +19,13 @@ jobs:
       run: xcodebuild -workspace SQLiteMigrationManager.xcworkspace -scheme "SQLiteMigrationManager iOS" -showdestinations
     - name: destinations-macos
       run: xcodebuild -workspace SQLiteMigrationManager.xcworkspace -scheme "SQLiteMigrationManager macOS" -showdestinations
+    - name: cache
+      uses: actions/cache@v2
+      with:
+        path: Carthage
+        key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-carthage-
     - name: setup
       run: ./bin/setup
     - name: tests
