@@ -15,8 +15,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: sdks
       run: xcodebuild -showsdks
-    - name: destinations
-      run: xcodebuild -showdestinations
+    - name: destinations-ios
+      run: xcodebuild -workspace SQLiteMigrationManager.xcworkspace -scheme 'SQLitMigrationManager iOS' -showdestinations
+    - name: destinations-macos
+      run: xcodebuild -workspace SQLiteMigrationManager.xcworkspace -scheme 'SQLitMigrationManager macOS' -showdestinations
     - name: setup
       run: ./bin/setup
     - name: tests
