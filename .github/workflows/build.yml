@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: sdks
+      run: xcodebuild -showsdks
     - name: setup
       run: ./bin/setup
     - name: tests
