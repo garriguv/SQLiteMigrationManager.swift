@@ -1,4 +1,4 @@
-# SQLiteMigrationManager.swift
+d# SQLiteMigrationManager.swift
 [![Build](https://github.com/garriguv/SQLiteMigrationManager.swift/actions/workflows/build.yml/badge.svg)](https://github.com/garriguv/SQLiteMigrationManager.swift/actions/workflows/build.yml) [![Version](https://img.shields.io/cocoapods/v/SQLiteMigrationManager.swift.svg?style=flat)](http://cocoapods.org/pods/SQLiteMigrationManager.swift)
 [![License](https://img.shields.io/cocoapods/l/SQLiteMigrationManager.swift.svg?style=flat)](http://cocoapods.org/pods/SQLiteMigrationManager.swift)
 [![Platform](https://img.shields.io/cocoapods/p/SQLiteMigrationManager.swift.svg?style=flat)](http://cocoapods.org/pods/SQLiteMigrationManager.swift)
@@ -98,7 +98,7 @@ print("needsMigration()     \(manager.needsMigration())")
 
 ### Swift Package Manager
 
-SQLiteMigrationManager.swift is availabel through [Swift Package Manager](https://swift.org/package-manager/).
+SQLiteMigrationManager.swift is available through [Swift Package Manager](https://swift.org/package-manager/).
 To install it, add the following dependency to your `Package.swift` file:
 
 ```swift
@@ -135,7 +135,7 @@ github "garriguv/SQLiteMigrationManager.swift"
 
 ## Author
 
-Vincent Garrigues, [vincent.garrigues@gmail.com](mailto:vincent.garrigues@gmail.com)
+Vincent Garrigues, [vincent@garriguv.io](mailto:vincent@garriguv.io)
 
 ## License
 
