@@ -16,9 +16,9 @@ jobs:
     - name: sdks
       run: xcodebuild -showsdks
     - name: destinations-ios
-      run: xcodebuild -workspace SQLiteMigrationManager.xcworkspace -scheme 'SQLitMigrationManager iOS' -showdestinations
+      run: xcodebuild -workspace SQLiteMigrationManager.xcworkspace -scheme "SQLiteMigrationManager iOS" -showdestinations
     - name: destinations-macos
-      run: xcodebuild -workspace SQLiteMigrationManager.xcworkspace -scheme 'SQLitMigrationManager macOS' -showdestinations
+      run: xcodebuild -workspace SQLiteMigrationManager.xcworkspace -scheme "SQLiteMigrationManager macOS" -showdestinations
     - name: setup
       run: ./bin/setup
     - name: tests
