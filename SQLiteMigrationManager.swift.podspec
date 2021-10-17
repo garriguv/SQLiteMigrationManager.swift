@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "http://twitter.com/garriguv"
 
   s.ios.deployment_target = '9.0'
-  s.osx.deployment_target = '10.10'
+  s.osx.deployment_target = '10.15'
 
   s.module_name  = 'SQLiteMigrationManager'
 
