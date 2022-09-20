@@ -17,19 +17,13 @@ Pod::Spec.new do |s|
 
   s.module_name  = 'SQLiteMigrationManager'
   s.source       = { :git => "https://github.com/garriguv/SQLiteMigrationManager.swift.git", tag: s.version.to_s, submodules: true }
+  s.source_files = "Sources"
 
   s.subspec 'standard' do |ss|
-   ss.source_files = "Sources"
    ss.dependency "SQLite.swift", "~> 0.13.0"
-  end
-  
-  s.subspec 'standalone' do |ss|
-   ss.source_files = "Sources"
-   ss.dependency "SQLite.swift/standalone", "~> 0.13.0"
   end
 
   s.subspec 'SQLCipher' do |ss|
-   ss.source_files = "Sources"
    ss.dependency "SQLite.swift/SQLCipher", "~> 0.13.0"
   end
 end
