@@ -22,6 +22,11 @@ Pod::Spec.new do |s|
    ss.source_files = "Sources"
    ss.dependency "SQLite.swift", "~> 0.13.0"
   end
+  
+  s.subspec 'standalone' do |ss|
+   ss.source_files = "Sources"
+   ss.dependency "SQLite.swift/standalone", "~> 0.13.0"
+  end
 
   s.subspec 'SQLCipher' do |ss|
    ss.source_files = "Sources"
