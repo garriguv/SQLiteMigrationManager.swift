@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.8.1](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.8.1)
+
+* Update SQLite.swift to `0.13.3`.
+* Add subspec compatible with SQLCipher (@liyuan116)
+
 ## [0.8.0](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.8.0)
 
 * Update SQLite.swift to `0.13.0`.
