@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.8.2](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.8.2)
+
+* Update SQLite.swift to `0.14.1` (@orestesgaolin)
+
 ## [0.8.1](https://github.com/garriguv/SQLiteMigrationManager.swift/releases/tag/0.8.1)
 
 * Update SQLite.swift to `0.13.3`.
