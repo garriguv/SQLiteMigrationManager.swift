@@ -102,7 +102,7 @@ SQLiteMigrationManager.swift is available through [Swift Package Manager](https:
 To install it, add the following dependency to your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/garriguv/SQLiteMigrationManager.swift.git", from: "0.8.2")
+.package(url: "https://github.com/garriguv/SQLiteMigrationManager.swift.git", from: "0.8.3")
 ```
 
 ### CocoaPods
