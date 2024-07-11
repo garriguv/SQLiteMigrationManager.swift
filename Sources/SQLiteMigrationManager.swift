@@ -1,6 +1,8 @@
 import Foundation
 import SQLite
 
+private typealias Expression = SQLite.Expression
+
 private struct MigrationDB {
   static let table = Table("schema_migrations")
   static let version = Expression<Int64>("version")
