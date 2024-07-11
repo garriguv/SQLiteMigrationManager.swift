@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/stephencelis/SQLite.swift.git",
         "state": {
           "branch": null,
-          "revision": "9af51e2edf491c0ea632e369a6566e09b65aa333",
-          "version": "0.13.0"
+          "revision": "a95fc6df17d108bd99210db5e8a9bac90fe984b8",
+          "version": "0.15.3"
         }
       }
     ]
