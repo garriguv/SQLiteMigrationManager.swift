@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
   s.author             = { "Vincent Garrigues" => "vincent@garriguv.io" }
-  s.social_media_url   = "https://masto.garriguv.io/@garriguv"
+  s.social_media_url   = "https://hachyderm.io/@garriguv"
 
   s.ios.deployment_target = '12.0'
   s.osx.deployment_target = '10.15'
@@ -19,15 +19,14 @@ Pod::Spec.new do |s|
 
   s.module_name  = 'SQLiteMigrationManager'
   s.source       = { :git => "https://github.com/garriguv/SQLiteMigrationManager.swift.git", tag: s.version.to_s, submodules: true }
-  
+
   s.subspec 'standard' do |ss|
    ss.source_files = "Sources"
    ss.dependency "SQLite.swift", "~> 0.15.3"
   end
-  
+
   s.subspec 'SQLCipher' do |ss|
    ss.source_files = "Sources"
    ss.dependency "SQLite.swift/SQLCipher", "~> 0.15.3"
   end
-  
 end
