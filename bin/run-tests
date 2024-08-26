@@ -6,13 +6,13 @@ main() {
   xcodebuild \
     -workspace SQLiteMigrationManager.xcworkspace \
     -scheme "SQLiteMigrationManager iOS" \
-    -sdk iphonesimulator16.2 \
-    -destination "platform=iOS Simulator,name=iPhone 12,OS=16.2"\
+    -sdk iphonesimulator17.5 \
+    -destination "platform=iOS Simulator,name=iPhone 15,OS=18.1"\
     test
   xcodebuild \
     -workspace SQLiteMigrationManager.xcworkspace \
     -scheme "SQLiteMigrationManager macOS" \
-    -sdk macosx13.1 \
+    -sdk macosx14.5 \
     -destination "arch=x86_64" \
     test
   swift build
