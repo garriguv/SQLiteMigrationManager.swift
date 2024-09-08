@@ -182,7 +182,17 @@ public struct SQLiteMigrationManager {
 extension Bundle {
   fileprivate func migrations() -> [Migration] {
     if let urls = urls(forResourcesWithExtension: "sql", subdirectory: nil) {
-      return urls.compactMap { FileMigration(url: $0) }
+      return urls.compactMap { item in
+        if let nsURL = item as? NSURL {
+          return FileMigration(url: nsURL as URL) ?? nil
+        } else if let url = item as? URL {
+          return FileMigration(url: url)
+        } else if let url = URL(string: item.absoluteString) {
+          return FileMigration(url: url)
+        } else {
+          return nil
+        }
+      }
     } else {
       return []
     }
